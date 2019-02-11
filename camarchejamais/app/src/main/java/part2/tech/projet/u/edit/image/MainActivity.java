@@ -100,9 +100,15 @@ public class MainActivity extends AppCompatActivity {
         // Create an image file name
         String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + time + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = null;
+        try{
+            storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/Camera");
+            if(!storageDir.exists())
+                storageDir.mkdirs();
+        }
+        catch (Exception e)
+        { }
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
         photoPath = image.getAbsolutePath();
         return image;
     }
@@ -121,17 +127,19 @@ public class MainActivity extends AppCompatActivity {
 
             Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
 
-            File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-            File file = new File(path, "demo.png");
-
-
-
-            try (FileOutputStream out = new FileOutputStream(file)) {
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
-                // PNG is a lossless format, the compression factor (100) is ignored
-            } catch (IOException e) {
-                e.printStackTrace();
+            File photo = null;
+            try{
+               photo = createImageFile();
             }
+            catch (Exception e)
+            { }
+
+            try (FileOutputStream out = new FileOutputStream(photo)) {
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
+                galleryAddPic(photo.toString());
+            }
+            catch (Exception e)
+            { }
         }
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_TAKE_PHOTO) {
@@ -142,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                 if (bmp != null)
                 {
                     imageView.setImageBitmap(bmp);
+                    galleryAddPic(photoPath);
                 }
             }
             catch (Exception e)
@@ -159,5 +168,13 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    private void galleryAddPic(String Path) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(Path);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 }
