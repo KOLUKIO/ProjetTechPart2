@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparentGrey"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <Button
+        android:id="@+id/button_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_filter_24dp"
+        android:text="filter"
+        android:textColor="@android:color/white"
+        android:textSize="10dp" />
+
+
+    <Button
+        android:id="@+id/button_contrast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_brightness_24dp"
+        android:text="contrast"
+        android:textColor="@android:color/white"
+        android:textSize="10dp" />
+
+    <Button
+        android:id="@+id/button_convolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_filter_24dp"
+        android:text="convolution"
+        android:textColor="@android:color/white"
+        android:textSize="10dp" />
+
+</LinearLayout>
