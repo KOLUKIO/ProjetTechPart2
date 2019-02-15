@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
     android:background="@color/colorTransparentGrey">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/button_arrow_back"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back_24dp"/>
 
-        <Button
-            android:id="@+id/button_arrow_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_arrow_back_24dp"/>
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/button_filter_grey"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_filter_grey_24dp"
-            android:text="grey"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_filter_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_filter_red_24dp"
-            android:text="red"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"/>
+                    <Button
+                        android:id="@+id/button_filter_grey"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_filter_grey_24dp"
+                        android:text="grey"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-        <Button
-            android:id="@+id/button_colorize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_filter_24dp"
-            android:text="colorize"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"/>
+                    <Button
+                        android:id="@+id/button_filter_red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_filter_red_24dp"
+                        android:text="red"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-        <Button
-            android:id="@+id/button_keep_red"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_filter_red_24dp"
-            android:text="keep red"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"/>
+                    <Button
+                        android:id="@+id/button_colorize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_filter_24dp"
+                        android:text="colorize"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-    </LinearLayout>
+                    <Button
+                        android:id="@+id/button_keep_red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableTop="@drawable/ic_filter_red_24dp"
+                        android:text="keep red"
+                        android:textSize="10dp"
+                        android:textColor="@android:color/white"/>
 
-</ScrollView>
+            </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

@@ -9,16 +9,21 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
+    <include
+        android:id="@+id/toolbarMenu"
+        layout="@layout/toolbar" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <ScrollView
-        android:name="project.part2.editimage.MenuFragment"
+    <LinearLayout
         android:id="@+id/activityMainFragment"
-        android:orientation="horizontal"
+        android:name="project.part2.editimage.MenuFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" />
 
 </RelativeLayout>

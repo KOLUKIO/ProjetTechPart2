@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import static project.part2.editimage.Functions.*;
@@ -21,13 +22,14 @@ public class FilterFragment extends Fragment {
 
     private static final String TAG = "FragmentMenu";
 
-    private Button mButtonArrowBack, mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed;
+    private Button mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed;
+    ImageButton mButtonArrowBack;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_filter, container, false);
-        mButtonArrowBack = (Button) view.findViewById(R.id.button_arrow_back);
+        mButtonArrowBack = (ImageButton) view.findViewById(R.id.button_arrow_back);
         mButtonGrey = (Button) view.findViewById(R.id.button_filter_grey);
         mButtonRed = (Button) view.findViewById(R.id.button_filter_red);
         mButtonColorize = (Button) view.findViewById(R.id.button_colorize);
