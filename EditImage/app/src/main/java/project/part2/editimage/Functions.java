@@ -53,7 +53,7 @@ public class Functions {
      * @param t , a double corresponding to the hue
      * @return a double corresponding to the new color of one chanel RGB
      */
-    private double hueToRgb(double p, double q, double t) {
+    private static double hueToRgb(double p, double q, double t) {
         if (t < 0) t += 1;
         if (t > 1) t -= 1;
         if (t < 0.166666666667) return (p + (q - p) * 6 * t);
@@ -69,7 +69,7 @@ public class Functions {
      * @param hue , hue to apply to the color
      * @return color with new hue
      */
-    private int newColor(int color, double hue) {
+    private static int newColor(int color, double hue) {
         // rgbToHsl
         double red = Color.red(color) / 255.0;
         double green = Color.green(color) / 255.0;
@@ -105,7 +105,7 @@ public class Functions {
      *
      * @param bmp , a Bitmap corresponding to the image to edit
      */
-    public void colorize(Bitmap bmp){
+    public static void colorize(Bitmap bmp){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         double hue = Math.random();
@@ -126,7 +126,7 @@ public class Functions {
      *
      * @param bmp , a Bitmap corresponding to the image to edit
      */
-    public void keepRed(Bitmap bmp){
+    public static void keepRed(Bitmap bmp){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         int[] pixels = new int[width];
@@ -151,7 +151,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @return the histogram of the Bitmap
      */
-    private int[] histogram(Bitmap bmp){
+    private static int[] histogram(Bitmap bmp){
         int[] hist = new int[256];
         int width = bmp.getWidth();
         int height = bmp.getHeight();
@@ -172,7 +172,7 @@ public class Functions {
      * @param hist , the histogram of the Bitmap
      * @return a float corresponding to the minimum of the histogram
      */
-    private float getMinHistogram(int[] hist){
+    private static float getMinHistogram(int[] hist){
         for(int i=0; i<255; i++){
             if(hist[i]!=0) return i;
         }
@@ -184,7 +184,7 @@ public class Functions {
      * @param hist , the histogram of the Bitmap
      * @return a float corresponding to the maximum of the histogram
      */
-    private float getMaxHistogram(int[] hist){
+    private static float getMaxHistogram(int[] hist){
         for(int i=255; i>0; i--){
             if(hist[i]!=0) return i;
         }
@@ -198,7 +198,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @return the lut (Look Up Table) of the Bitmap
      */
-    public int[] lutContrastAuto(Bitmap bmp){
+    public static int[] lutContrastAuto(Bitmap bmp){
         int[] lut = new int[256];
         int[] hist = histogram(bmp);
         float minRgb = getMinHistogram(hist);
@@ -217,7 +217,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @return the lut (Look Up Table) of the Bitmap
      */
-    public int[] lutContrastLess(Bitmap bmp){
+    public static int[] lutContrastLess(Bitmap bmp){
         int[] lut = new int[256];
         int[] hist = histogram(bmp);
         float minRgb = getMinHistogram(hist);
@@ -237,7 +237,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @return the new histogram
      */
-    public int[] histogramEqualization(Bitmap bmp){
+    public static int[] histogramEqualization(Bitmap bmp){
         int[] histogram = histogram(bmp);
         float[] cHistogram = new float[256];  // cumulative histogram
         int[] lut = new int[256];             // equalized histogram
@@ -257,7 +257,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @param lut , the Look Up Table corresponding to new pixel values
      */
-    public void contrast(Bitmap bmp, int[] lut){
+    public static void contrast(Bitmap bmp, int[] lut){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         int[] pixels = new int[width];
@@ -284,7 +284,7 @@ public class Functions {
      * @param size , a odd integer corresponding to the size of the matrix
      * @return a matrix
      */
-    public double[][] getMatrixAveraging(int size){
+    public static double[][] getMatrixAveraging(int size){
         double[][] matrix = new double[size][size];
         double nbPixel = size*size;
         for(int i=0; i<size; i++){
@@ -303,7 +303,7 @@ public class Functions {
      * @param sigma , a double
      * @return a matrix
      */
-    public double[][] getMatrixGaussian(int size, double sigma){
+    public static double[][] getMatrixGaussian(int size, double sigma){
         double[][] matrix = new double[size][size];
         for(int x=0; x<size; x++){
             for(int y=0; y<size; y++){
@@ -321,7 +321,7 @@ public class Functions {
      * @param bmp , a Bitmap corresponding to the image to edit
      * @param matrix , a matrix corresponding to the filter to apply to the Bitmap
      */
-    public void convolution(Bitmap bmp, double[][] matrix){
+    public static void convolution(Bitmap bmp, double[][] matrix){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         int size = matrix.length;

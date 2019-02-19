@@ -13,5 +13,10 @@
         android:icon="@drawable/ic_insert_photo_white_48px"
         android:title="gallery"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_save_photo"
+        android:icon="@drawable/save"
+        android:title="save"
+        app:showAsAction="always" />
 
 </menu>

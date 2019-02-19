@@ -2,6 +2,7 @@ package project.part2.editimage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ import static project.part2.editimage.Functions.*;
 
 public class FilterFragment extends Fragment {
 
+    Bitmap bitmap;
+    ImageView i;
     // empty public constructor
     public FilterFragment() { }
 
@@ -37,8 +40,11 @@ public class FilterFragment extends Fragment {
 
         Log.d(TAG, "onCreateView: started.");
 
-        ImageView i = (ImageView) getActivity().findViewById(R.id.imageView);
-        final Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.image_test);
+        i = (ImageView) getActivity().findViewById(R.id.imageView);
+        //bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.image_test);
+        bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
+        bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
+
         i.setImageBitmap(bitmap);
 
         mButtonArrowBack.setOnClickListener(new View.OnClickListener() {
@@ -51,28 +57,32 @@ public class FilterFragment extends Fragment {
         mButtonGrey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // toGrey(bitmap);
+                toGrey(bitmap);
+                i.setImageBitmap(bitmap); // Force refresh imageview
             }
         });
 
         mButtonRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                toRed(bitmap);
+                i.setImageBitmap(bitmap);
             }
         });
 
         mButtonColorize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                colorize(bitmap);
+                i.setImageBitmap(bitmap);
             }
         });
 
         mButtonKeepRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                keepRed(bitmap);
+                i.setImageBitmap(bitmap);
             }
         });
 
