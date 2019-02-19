@@ -1,6 +1,8 @@
 package project.part2.editimage;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -93,9 +95,21 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MenuFragment();
                 break;
             case 1:
+                if (imageView.getDrawable() == null)
+                {
+                    Alert();
+                    fragment = new MenuFragment();
+                    break;
+                }
                 fragment = new FilterFragment();
                 break;
             case 2:
+                if (imageView.getDrawable() == null)
+                {
+                    Alert();
+                    fragment = new MenuFragment();
+                    break;
+                }
                 fragment = new ContrastFragment();
                 break;
             default:
@@ -227,5 +241,18 @@ public class MainActivity extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+    }
+
+    public void Alert() {
+        AlertDialog msg = new AlertDialog.Builder(this).create();
+        msg.setTitle("Attention !");
+        msg.setMessage("Veuillez ouvrir une photo depuis la galerie ou prendre une photo avec la caméra pour continuer !");
+        msg.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        msg.show();
     }
 }

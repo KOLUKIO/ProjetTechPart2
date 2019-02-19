@@ -2,7 +2,6 @@ package project.part2.editimage;
 
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,7 +38,6 @@ public class ContrastFragment extends Fragment {
         mButtonColorize = (Button) view.findViewById(R.id.button_contrast);
 
         i = (ImageView) getActivity().findViewById(R.id.imageView);
-        //bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.image_test);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
 
@@ -62,5 +60,4 @@ public class ContrastFragment extends Fragment {
 
         return view;
     }
-
 }

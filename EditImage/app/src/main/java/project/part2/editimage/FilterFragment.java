@@ -1,7 +1,6 @@
 package project.part2.editimage;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +31,7 @@ public class FilterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_filter, container, false);
+        View v  = inflater.inflate(R.layout.activity_main, container, false);
         mButtonArrowBack = (ImageButton) view.findViewById(R.id.button_arrow_back);
         mButtonGrey = (Button) view.findViewById(R.id.button_filter_grey);
         mButtonRed = (Button) view.findViewById(R.id.button_filter_red);
@@ -41,10 +41,9 @@ public class FilterFragment extends Fragment {
         Log.d(TAG, "onCreateView: started.");
 
         i = (ImageView) getActivity().findViewById(R.id.imageView);
-        //bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.image_test);
+
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
-
         i.setImageBitmap(bitmap);
 
         mButtonArrowBack.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +87,4 @@ public class FilterFragment extends Fragment {
 
         return view;
     }
-
-
 }
