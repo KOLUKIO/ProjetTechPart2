@@ -71,10 +71,13 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.action_picture_from_camera :
                         openCamera();
+                        return true;
                     case R.id.action_picture_from_gallery :
                         openGallery();
+                        return true;
                     case R.id.action_save_photo:
                         savePicture();
+                        return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);
                 }
