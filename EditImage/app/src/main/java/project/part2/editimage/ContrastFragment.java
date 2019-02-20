@@ -26,16 +26,18 @@ public class ContrastFragment extends Fragment {
     // empty public constructor
     public ContrastFragment() {    }
 
-    private ImageButton mButtonArrowBack;
-    private Button mButtonColorize;
+    private Button mButtonDynamic, mButtonHistogram, mButtonLess;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contrast, container, false);
-
-        mButtonArrowBack = (ImageButton) view.findViewById(R.id.button_arrow_back);
-        mButtonColorize = (Button) view.findViewById(R.id.button_contrast);
+        mButtonDynamic = (Button) view.findViewById(R.id.button_contrast_dynamic);
+        mButtonDynamic.setText("Extension\ndynamic");
+        mButtonHistogram = (Button) view.findViewById(R.id.button_contrast_histogram);
+        mButtonHistogram.setText("Histogram\nequalization");
+        mButtonLess = (Button) view.findViewById(R.id.button_contrast_less);
+        mButtonLess.setText("Less\ncontrast");
 
         i = (ImageView) getActivity().findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
@@ -43,17 +45,26 @@ public class ContrastFragment extends Fragment {
 
         i.setImageBitmap(bitmap);
 
-        mButtonArrowBack.setOnClickListener(new View.OnClickListener() {
+        mButtonDynamic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(0);
+            public void onClick(View v) {
+                contrast(bitmap, lutContrastAuto(bitmap));
+                i.setImageBitmap(bitmap);
             }
         });
 
-        mButtonColorize.setOnClickListener(new View.OnClickListener() {
+        mButtonHistogram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 contrast(bitmap, histogramEqualization(bitmap));
+                i.setImageBitmap(bitmap);
+            }
+        });
+
+        mButtonLess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contrast(bitmap, lutContrastLess(bitmap));
                 i.setImageBitmap(bitmap);
             }
         });

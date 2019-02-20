@@ -31,20 +31,16 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
-
     private static final int GALLERY_REQUEST = 1314;
     private static final int REQUEST_TAKE_PHOTO = 1;
 
     String photoPath;
-    private Uri photoUri;
     ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: Started.");
 
         /* Ask permission WRITE_EXTERNAL_STORAGE */
         if (ContextCompat.checkSelfPermission(this,
@@ -58,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_TAKE_PHOTO);
             }
-        } else {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -98,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new MenuFragment();
                 break;
             case 1:
-                if (imageView.getDrawable() == null)
-                {
+                if (imageView.getDrawable() == null) {
                     Alert();
                     fragment = new MenuFragment();
                     break;
@@ -107,13 +101,31 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new FilterFragment();
                 break;
             case 2:
-                if (imageView.getDrawable() == null)
-                {
+                if (imageView.getDrawable() == null) {
                     Alert();
                     fragment = new MenuFragment();
                     break;
                 }
                 fragment = new ContrastFragment();
+                break;
+            case 3:
+                if (imageView.getDrawable() == null) {
+                    Alert();
+                    fragment = new MenuFragment();
+                    break;
+                }
+                fragment = new BlurFragment();
+                break;
+            case 5:
+                if (imageView.getDrawable() == null) {
+                    Alert();
+                    fragment = new MenuFragment();
+                    break;
+                }
+                fragment = new ConvolutionFragment();
+                break;
+            case 6:
+                fragment = new ColorizeFragment();
                 break;
             default:
                 fragment = new MenuFragment();
@@ -211,9 +223,8 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                } else {
                 }
-                return;
+                break;
             }
         }
     }

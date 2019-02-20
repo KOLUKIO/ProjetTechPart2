@@ -22,36 +22,23 @@ public class FilterFragment extends Fragment {
     // empty public constructor
     public FilterFragment() { }
 
-    private static final String TAG = "FragmentMenu";
-
     private Button mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed;
-    ImageButton mButtonArrowBack;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_filter, container, false);
         View v  = inflater.inflate(R.layout.activity_main, container, false);
-        mButtonArrowBack = (ImageButton) view.findViewById(R.id.button_arrow_back);
         mButtonGrey = (Button) view.findViewById(R.id.button_filter_grey);
         mButtonRed = (Button) view.findViewById(R.id.button_filter_red);
         mButtonColorize = (Button) view.findViewById(R.id.button_colorize);
         mButtonKeepRed = (Button) view.findViewById(R.id.button_keep_red);
-
-        Log.d(TAG, "onCreateView: started.");
 
         i = (ImageView) getActivity().findViewById(R.id.imageView);
 
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
-
-        mButtonArrowBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(0);
-            }
-        });
 
         mButtonGrey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +59,7 @@ public class FilterFragment extends Fragment {
         mButtonColorize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                colorize(bitmap);
-                i.setImageBitmap(bitmap);
+                ((MainActivity)getActivity()).setViewPager(6);
             }
         });
 

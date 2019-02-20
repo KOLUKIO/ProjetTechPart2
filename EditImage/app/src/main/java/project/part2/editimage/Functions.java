@@ -6,6 +6,11 @@ import android.util.Log;
 
 public class Functions {
 
+    public static int RgbToGrey(int pixel){
+        int grey = (int) (0.3*Color.red(pixel) + 0.59*Color.green(pixel) + 0.11*Color.blue(pixel));
+        return Color.rgb(grey, grey, grey);
+    }
+
     // filter
     // TP1 Question 10
     /**
@@ -20,8 +25,7 @@ public class Functions {
         for(int y=0; y<height; y++){
             bmp.getPixels(pixels, 0, width, 0, y, width, 1);
             for(int i=0; i<width; i++){
-                grey = (int) (0.3*Color.red(pixels[i]) + 0.59*Color.green(pixels[i]) + 0.11*Color.blue(pixels[i]));
-                pixels[i] = Color.rgb(grey, grey, grey);
+                pixels[i] = RgbToGrey(pixels[i]);
             }
             bmp.setPixels(pixels, 0, width, 0, y, width, 1);
         }
@@ -104,11 +108,12 @@ public class Functions {
      * Changes the hue of a Bitmap (the hue is chosen randomly) using getPixels() and setPixels()
      *
      * @param bmp , a Bitmap corresponding to the image to edit
+     * @param hue , a double
      */
-    public static void colorize(Bitmap bmp){
+    public static void colorize(Bitmap bmp, double hue){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
-        double hue = Math.random();
+       // double hue = Math.random();
         int[] pixels = new int[width];
         for(int y=0; y<height; y++){
             bmp.getPixels(pixels, 0, width, 0, y, width, 1);
@@ -135,10 +140,7 @@ public class Functions {
             for(int i=0; i<width; i++){
                 if(Color.red(pixels[i]) - Color.green(pixels[i]) < 95
                         || Color.red(pixels[i]) - Color.blue(pixels[i]) < 95){
-                    int grey = (int) (0.3*Color.red(pixels[i])
-                            + 0.59*Color.green(pixels[i])
-                            + 0.11*Color.blue(pixels[i]));
-                    pixels[i] = Color.rgb(grey, grey, grey);
+                    pixels[i] = RgbToGrey(pixels[i]);
                 }
             }
             bmp.setPixels(pixels, 0, width, 0, y, width, 1);

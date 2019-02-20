@@ -1,6 +1,5 @@
 package project.part2.editimage;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,19 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-
 public class MenuFragment extends Fragment {
-
 
     public MenuFragment() {
         // Required empty public constructor
     }
 
-    private static final String TAG = "FragmentMenu";
-
-    private Button mButtonFilter;
-    private Button mButtonContrast;
-    private Button mButtonConvolution;
+    private Button mButtonFilter, mButtonContrast, mButtonBlur, mButtonConvolution;
 
     @Nullable
     @Override
@@ -30,8 +23,8 @@ public class MenuFragment extends Fragment {
         View view  = inflater.inflate(R.layout.fragment_menu, container, false);
         mButtonFilter = (Button) view.findViewById(R.id.button_filter);
         mButtonContrast = (Button) view.findViewById(R.id.button_contrast);
+        mButtonBlur = (Button) view.findViewById(R.id.button_blur);
         mButtonConvolution = (Button) view.findViewById(R.id.button_convolution);
-        Log.d(TAG, "onCreateView: started.");
 
         mButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,10 +40,17 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        mButtonBlur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).setViewPager(3);
+            }
+        });
+
         mButtonConvolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  ((MainActivity)getActivity()).setViewPager(2);
+                ((MainActivity)getActivity()).setViewPager(5);
             }
         });
 

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="bottom|center"
+    android:gravity="center"
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
@@ -16,7 +15,8 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarMenu"/>
 
     <LinearLayout
         android:id="@+id/activityMainFragment"

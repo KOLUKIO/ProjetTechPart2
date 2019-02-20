@@ -15,7 +15,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_save_photo"
-        android:icon="@drawable/save"
+        android:icon="@drawable/ic_save_24dp"
         android:title="save"
         app:showAsAction="always" />
 
