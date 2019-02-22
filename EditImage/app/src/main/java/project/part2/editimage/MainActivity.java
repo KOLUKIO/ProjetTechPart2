@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         savePicture();
                         return true;
                     case R.id.action_cancel :
-                        //...
-                        imageView.setImageBitmap(copyBmp);
+                        cancel();
                         return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);
@@ -93,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         setViewPager(0);
+    }
+
+    public void cancel(){
+        if (imageView.getDrawable() != null){
+            imageView.setImageBitmap(copyBmp);
+            Toast.makeText(this, "Image reset", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setViewPager(int i){
