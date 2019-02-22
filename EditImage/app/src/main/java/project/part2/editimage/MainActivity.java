@@ -75,8 +75,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_picture_from_gallery :
                         openGallery();
                         return true;
-                    case R.id.action_save_photo:
+                    case R.id.action_save_photo :
                         savePicture();
+                        return true;
+                    case R.id.action_cancel :
+                        //...
                         return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);

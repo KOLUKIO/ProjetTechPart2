@@ -8,6 +8,24 @@ import android.util.Log;
 
 public class Functions {
 
+    public static void toNegative(Bitmap bmp){
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        int[] pixels = new int[width];
+        int red, green, blue;
+        for(int y=0; y<height; y++){
+            bmp.getPixels(pixels, 0, width, 0, y, width, 1);
+            for(int i=0; i<width; i++){
+                red = 255 - Color.red(pixels[i]);
+                green = 255 - Color.green(pixels[i]);
+                blue = 255 - Color.blue(pixels[i]);
+                pixels[i] = Color.rgb(red, green, blue);
+            }
+            bmp.setPixels(pixels, 0, width, 0, y, width, 1);
+        }
+    }
+
+
     public static int RgbToGrey(int pixel){
         int grey = (int) (0.3*Color.red(pixel) + 0.59*Color.green(pixel) + 0.11*Color.blue(pixel));
         return Color.rgb(grey, grey, grey);

@@ -22,7 +22,7 @@ public class FilterFragment extends Fragment {
     // empty public constructor
     public FilterFragment() { }
 
-    private Button mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed;
+    private Button mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed, mButtonNegative;
 
     @Nullable
     @Override
@@ -33,6 +33,7 @@ public class FilterFragment extends Fragment {
         mButtonRed = (Button) view.findViewById(R.id.button_filter_red);
         mButtonColorize = (Button) view.findViewById(R.id.button_colorize);
         mButtonKeepRed = (Button) view.findViewById(R.id.button_keep_red);
+        mButtonNegative = (Button) view.findViewById(R.id.button_filter_negative);
 
         i = (ImageView) getActivity().findViewById(R.id.imageView);
 
@@ -67,6 +68,14 @@ public class FilterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 keepRed(bitmap);
+                i.setImageBitmap(bitmap);
+            }
+        });
+
+        mButtonNegative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toNegative(bitmap);
                 i.setImageBitmap(bitmap);
             }
         });

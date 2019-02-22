@@ -56,6 +56,16 @@
                 android:textSize="10dp"
                 android:textColor="@android:color/white"/>
 
+            <Button
+                android:id="@+id/button_filter_negative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_filter_grey_24dp"
+                android:text="negative"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"/>
+
         </LinearLayout>
 
     </HorizontalScrollView>

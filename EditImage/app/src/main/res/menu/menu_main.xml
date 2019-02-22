@@ -19,4 +19,11 @@
         android:title="save"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_cancel"
+        android:icon="@drawable/ic_cancel_24dp"
+        android:title="cancel"
+        app:showAsAction="always" />
+
+
 </menu>
