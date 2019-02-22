@@ -2,6 +2,8 @@ package project.part2.editimage;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.v8.renderscript.Allocation;
+import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
 
 public class Functions {
@@ -347,4 +349,15 @@ public class Functions {
         }
     }
 
+    public static void colorizeRS(Bitmap bmp, double hue){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_colorize colorize = new ScriptC_colorize(rs);
+        colorize.set_H((float)hue);
+        colorize.forEach_colorize(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        colorize.destroy(); rs.destroy();
+    }
 }

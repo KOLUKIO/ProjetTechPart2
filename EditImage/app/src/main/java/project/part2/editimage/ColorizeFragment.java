@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
+import static project.part2.editimage.Functions.colorizeRS;
 import static project.part2.editimage.Functions.colorize;
 import static project.part2.editimage.Functions.contrast;
 import static project.part2.editimage.Functions.lutContrastAuto;
@@ -37,8 +38,9 @@ public class ColorizeFragment extends Fragment {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                double hue = progress/360.0;
-                colorize(bitmap, hue);
+                double hue = progress;
+                colorizeRS(bitmap, hue);
+                //colorize(bitmap, hue);
                 i.setImageBitmap(bitmap);
             }
 

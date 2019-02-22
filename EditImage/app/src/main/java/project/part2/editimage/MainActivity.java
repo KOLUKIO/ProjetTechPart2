@@ -2,6 +2,7 @@ package project.part2.editimage;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -31,6 +32,8 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static Context context;
+
     private static final int GALLERY_REQUEST = 1314;
     private static final int REQUEST_TAKE_PHOTO = 1;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.context = getApplicationContext();
+
         setContentView(R.layout.activity_main);
 
         /* Ask permission WRITE_EXTERNAL_STORAGE */
@@ -268,5 +273,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         msg.show();
+    }
+
+    public static Context getContext() {
+        return MainActivity.context;
     }
 }
