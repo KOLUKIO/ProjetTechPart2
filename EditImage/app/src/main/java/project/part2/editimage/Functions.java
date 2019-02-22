@@ -171,6 +171,22 @@ public class Functions {
         return hist;
     }
 
+    static int[][] histogramRgb(Bitmap bmp){
+        int[][] hist = new int[3][256];
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        int[] pixels = new int[width];
+        for(int y=0; y<height; y++){
+            bmp.getPixels(pixels, 0, width, 0, y, width, 1);
+            for(int i=0; i<width; i++){
+                hist[0][Color.red(pixels[i])] += 1;
+                hist[1][Color.green(pixels[i])] += 1;
+                hist[2][Color.blue(pixels[i])] += 1;
+            }
+        }
+        return hist;
+    }
+
     /**
      *
      * @param hist , the histogram of the Bitmap

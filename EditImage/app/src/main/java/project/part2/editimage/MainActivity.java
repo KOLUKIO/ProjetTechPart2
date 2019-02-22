@@ -132,6 +132,14 @@ public class MainActivity extends AppCompatActivity {
             case 6:
                 fragment = new ColorizeFragment();
                 break;
+            case 7:
+                if (imageView.getDrawable() == null) {
+                    Alert();
+                    fragment = new MenuFragment();
+                    break;
+                }
+                fragment = new GraphFragment();
+                break;
             default:
                 fragment = new MenuFragment();
         }
