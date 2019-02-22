@@ -19,10 +19,10 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
 
     String photoPath;
     ImageView imageView;
+    Bitmap copyBmp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MainActivity.context = getApplicationContext();
-
         setContentView(R.layout.activity_main);
 
         /* Ask permission WRITE_EXTERNAL_STORAGE */
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_cancel :
                         //...
+                        imageView.setImageBitmap(copyBmp);
                         return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);
@@ -96,55 +97,35 @@ public class MainActivity extends AppCompatActivity {
 
     public void setViewPager(int i){
         Fragment fragment;
-        switch (i){
-            case 0:
-                fragment = new MenuFragment();
-                break;
-            case 1:
-                if (imageView.getDrawable() == null) {
-                    Alert();
+        if (imageView.getDrawable() == null) {
+            Alert();
+            fragment = new MenuFragment();
+        } else {
+            switch (i){
+                case 0:
                     fragment = new MenuFragment();
                     break;
-                }
-                fragment = new FilterFragment();
-                break;
-            case 2:
-                if (imageView.getDrawable() == null) {
-                    Alert();
-                    fragment = new MenuFragment();
+                case 1:
+                    fragment = new FilterFragment();
                     break;
-                }
-                fragment = new ContrastFragment();
-                break;
-            case 3:
-                if (imageView.getDrawable() == null) {
-                    Alert();
-                    fragment = new MenuFragment();
+                case 2:
+                    fragment = new ContrastFragment();
                     break;
-                }
-                fragment = new BlurFragment();
-                break;
-            case 5:
-                if (imageView.getDrawable() == null) {
-                    Alert();
-                    fragment = new MenuFragment();
+                case 3:
+                    fragment = new BlurFragment();
                     break;
-                }
-                fragment = new ConvolutionFragment();
-                break;
-            case 6:
-                fragment = new ColorizeFragment();
-                break;
-            case 7:
-                if (imageView.getDrawable() == null) {
-                    Alert();
-                    fragment = new MenuFragment();
+                case 5:
+                    fragment = new ConvolutionFragment();
                     break;
-                }
-                fragment = new GraphFragment();
-                break;
-            default:
-                fragment = new MenuFragment();
+                case 6:
+                    fragment = new ColorizeFragment();
+                    break;
+                case 7:
+                    fragment = new GraphFragment();
+                    break;
+                default:
+                    fragment = new MenuFragment();
+            }
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activityMainFragment, fragment);
@@ -204,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageURI(imageUri);
 
             Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+            copyBmp = bmp;
 
             File photo = null;
             try{
@@ -224,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
             try{
                 /* Get the photo */
                 Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), Uri.fromFile(photo));
-                if (bmp != null)
-                {
+                copyBmp = bmp;
+                if (bmp != null) {
                     imageView.setImageBitmap(bmp);
                 }
             }
@@ -245,8 +227,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void savePicture()
-    {
+    private void savePicture() {
         try {
             Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             FileOutputStream outStream = null;
@@ -260,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
             outStream.flush();
             outStream.close();
             galleryAddPic(outFile.getAbsolutePath());
+            Toast.makeText(this, "Image saved",Toast.LENGTH_SHORT).show();
         }
         catch (Exception e)
         { }
