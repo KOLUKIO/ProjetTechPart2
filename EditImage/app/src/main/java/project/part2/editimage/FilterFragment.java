@@ -60,7 +60,7 @@ public class FilterFragment extends Fragment {
         mButtonColorize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(6);
+                ((MainActivity)getActivity()).changeFragment(new ColorizeFragment());
             }
         });
 

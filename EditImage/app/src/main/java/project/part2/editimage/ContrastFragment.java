@@ -1,6 +1,5 @@
 package project.part2.editimage;
 
-
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -14,10 +13,6 @@ import android.widget.ImageView;
 
 import static project.part2.editimage.Functions.*;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ContrastFragment extends Fragment {
 
     Bitmap bitmap;

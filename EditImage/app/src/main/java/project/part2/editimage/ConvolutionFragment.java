@@ -19,6 +19,7 @@ public class ConvolutionFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_convolution, container, false);
 
 
-        return view;    }
+        return view;
+    }
 
 }

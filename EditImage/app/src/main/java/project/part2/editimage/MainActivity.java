@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setViewPager(0);
+        changeFragment(new MenuFragment());
     }
 
     public void cancel(){
@@ -108,37 +108,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void setViewPager(int i){
-        Fragment fragment;
+    public void changeFragment(Fragment fragment){
         if (imageView.getDrawable() == null) {
             Alert();
             fragment = new MenuFragment();
-        } else {
-            switch (i){
-                case 0:
-                    fragment = new MenuFragment();
-                    break;
-                case 1:
-                    fragment = new FilterFragment();
-                    break;
-                case 2:
-                    fragment = new ContrastFragment();
-                    break;
-                case 3:
-                    fragment = new BlurFragment();
-                    break;
-                case 5:
-                    fragment = new ConvolutionFragment();
-                    break;
-                case 6:
-                    fragment = new ColorizeFragment();
-                    break;
-                case 7:
-                    fragment = new GraphFragment();
-                    break;
-                default:
-                    fragment = new MenuFragment();
-            }
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activityMainFragment, fragment);

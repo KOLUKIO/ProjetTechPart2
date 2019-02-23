@@ -144,6 +144,17 @@ public class Functions {
         }
     }
 
+    public static void colorizeRS(Bitmap bmp, double hue){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_colorize colorize = new ScriptC_colorize(rs);
+        colorize.set_H((float)hue);
+        colorize.forEach_colorize(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        colorize.destroy(); rs.destroy();
+    }
 
     // TP2 Question 3.2 Keep one color
     /**
@@ -383,15 +394,4 @@ public class Functions {
         }
     }
 
-    public static void colorizeRS(Bitmap bmp, double hue){
-        RenderScript rs = RenderScript.create(MainActivity.getContext());
-        Allocation input = Allocation.createFromBitmap(rs, bmp);
-        Allocation output = Allocation.createTyped(rs, input.getType());
-        ScriptC_colorize colorize = new ScriptC_colorize(rs);
-        colorize.set_H((float)hue);
-        colorize.forEach_colorize(input, output);
-        output.copyTo(bmp);
-        input.destroy(); output.destroy();
-        colorize.destroy(); rs.destroy();
-    }
 }

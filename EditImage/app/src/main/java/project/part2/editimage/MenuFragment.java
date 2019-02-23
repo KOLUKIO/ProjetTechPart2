@@ -30,35 +30,35 @@ public class MenuFragment extends Fragment {
         mButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(1);
+                ((MainActivity)getActivity()).changeFragment(new FilterFragment());
             }
         });
 
         mButtonContrast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(2);
+                ((MainActivity)getActivity()).changeFragment(new ContrastFragment());
             }
         });
 
         mButtonBlur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPager(3);
+                ((MainActivity)getActivity()).changeFragment(new BlurFragment());
             }
         });
 
         mButtonConvolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).setViewPager(5);
+                ((MainActivity)getActivity()).changeFragment(new ConvolutionFragment());
             }
         });
 
         mButtonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity)getActivity()).setViewPager(7);
+                ((MainActivity)getActivity()).changeFragment(new GraphFragment());
             }
         });
 
