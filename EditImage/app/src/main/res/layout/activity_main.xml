@@ -8,17 +8,15 @@
     android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/toolbarMenu"
-        layout="@layout/toolbar" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarMenu"
-        android:scaleX="1"
-        android:scaleY="1" />
+        android:layout_below="@+id/toolbarMenu" />
+
+    <include
+        android:id="@+id/toolbarMenu"
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:id="@+id/activityMainFragment"
