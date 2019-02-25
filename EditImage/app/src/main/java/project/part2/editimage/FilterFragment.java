@@ -44,7 +44,8 @@ public class FilterFragment extends Fragment {
         mButtonGrey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toGrey(bitmap);
+                //toGrey(bitmap);
+                toGreyRS(bitmap);
                 i.setImageBitmap(bitmap); // Force refresh imageview
             }
         });
@@ -67,7 +68,8 @@ public class FilterFragment extends Fragment {
         mButtonKeepRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                keepRed(bitmap);
+                //keepRed(bitmap);
+                keepRedRS(bitmap);
                 i.setImageBitmap(bitmap);
             }
         });
@@ -75,7 +77,8 @@ public class FilterFragment extends Fragment {
         mButtonNegative.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toNegative(bitmap);
+                //toNegative(bitmap);
+                toNegativeRS(bitmap);
                 i.setImageBitmap(bitmap);
             }
         });

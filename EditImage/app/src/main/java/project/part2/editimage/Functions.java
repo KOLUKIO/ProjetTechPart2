@@ -25,6 +25,17 @@ public class Functions {
         }
     }
 
+    public static void toNegativeRS(Bitmap bmp){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_negative negative = new ScriptC_negative(rs);
+
+        negative.forEach_negative(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        negative.destroy(); rs.destroy();
+    }
 
     public static int RgbToGrey(int pixel){
         int grey = (int) (0.3*Color.red(pixel) + 0.59*Color.green(pixel) + 0.11*Color.blue(pixel));
@@ -49,6 +60,18 @@ public class Functions {
             }
             bmp.setPixels(pixels, 0, width, 0, y, width, 1);
         }
+    }
+
+    public static void toGreyRS(Bitmap bmp){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_toGrey togrey = new ScriptC_toGrey(rs);
+
+        togrey.forEach_toGrey(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        togrey.destroy(); rs.destroy();
     }
 
     /**
@@ -176,6 +199,18 @@ public class Functions {
             }
             bmp.setPixels(pixels, 0, width, 0, y, width, 1);
         }
+    }
+
+    public static void keepRedRS(Bitmap bmp){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_keepRed keepRed = new ScriptC_keepRed(rs);
+
+        keepRed.forEach_keepColor(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        keepRed.destroy(); rs.destroy();
     }
 
     // contrast
