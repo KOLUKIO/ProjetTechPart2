@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
             case MotionEvent.ACTION_UP: // le doigt se lève
                 break;
             case MotionEvent.ACTION_POINTER_UP: { // deuxième doigt se lève
+                zoom = false;
                 break;
             }
             case MotionEvent.ACTION_POINTER_DOWN: // deux doigts
@@ -281,13 +282,12 @@ public class MainActivity extends AppCompatActivity {
                 if (zoom == true) {
                     try{
                         if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
-                            System.out.println(" D = " + d + "        DIST = " + dist(x0, e.getX(0), y0, e.getY(0)));
-                            imageView.setScaleX(imageView.getScaleX() + 0.05f);
-                            imageView.setScaleY(imageView.getScaleY() + 0.05f);
+                            imageView.setScaleX(imageView.getScaleX() + 0.025f);
+                            imageView.setScaleY(imageView.getScaleY() + 0.025f);
                         }
                         if (dist(x0, e.getX(1), y0, e.getY(1)) < d) {
-                            imageView.setScaleX(imageView.getScaleX() - 0.05f);
-                            imageView.setScaleY(imageView.getScaleY() - 0.05f);
+                            imageView.setScaleX(imageView.getScaleX() - 0.025f);
+                            imageView.setScaleY(imageView.getScaleY() - 0.025f);
                         }
                         if (imageView.getScaleX() > 2.5)
                         {
@@ -302,7 +302,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     catch (Exception ex)
                     { }
-
+                }
+                else{
+                    int x = (int)(x0 - e.getX(0));
+                    int y = (int)(y0 - e.getY(0));
+                    imageView.scrollBy(x/50, y/50);
                 }
         }
         return super.onTouchEvent(e);
