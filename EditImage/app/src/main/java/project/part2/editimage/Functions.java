@@ -429,4 +429,75 @@ public class Functions {
         }
     }
 
+    private static int[] convolution1(int[] pix,int i, int j, int w, int[] copy, int[][] h){
+        int len = h.length;
+        int n = len/2;
+        int s = 0;
+        for(int x = -n; x <= n; x++)
+        {
+            for (int y = -n; y <= n; y++)
+            {
+                int p = pix[(i + y) + (j + x) * w];
+                int r = Color.red(p);
+                s = s + h[y + n][x + n] * r;
+            }
+        }
+        copy[i + j * w] = s;
+        return copy;
+    }
+
+    public static void sobelFilter(Bitmap bmp){
+        int w = bmp.getWidth();
+        int h = bmp.getHeight();
+        int size = w * h;
+
+        toGrey(bmp);
+
+        int[][] h1 = {{-1,0,1},
+                        {-2,0,2},
+                        {-1,0,1}} ; // Opérateur de sobel h1
+        int[][] h2 = {{-1,-2,-1},
+                        {0,0,0},
+                        {1,2,1}} ; // Opérateur de sobel h2
+
+        int len = h1.length;
+        int[] p = new int[size];
+
+        bmp.getPixels(p,0, w,0,0, w, h);
+
+        int[] copy1 = new int[w*h];
+        int[] copy2 = new int[w*h];
+        int[] res = new int[w*h];
+
+        bmp.getPixels(copy1,0,w,0,0, w, h);
+        bmp.getPixels(copy2,0,w,0,0, w, h);
+        bmp.getPixels(res,0,w,0,0, w, h);
+
+        int n = len/2;
+
+        for(int i = n; i < w - n; i++) // On applique les masques sur les deux copies
+        {
+            for(int j = n; j < h - n; j++)
+            {
+                copy1 = convolution1(p, i, j, w, copy1, h1);
+                copy2 = convolution1(p, i, j, w, copy2, h2);
+            }
+        }
+
+        for(int j = 0; j < w*h; j++) //
+        {
+            int c1 = copy1[j];
+            int c2 = copy2[j];
+
+            double g = Math.sqrt((c1 * c1) + (c2 * c2));
+            if (g > 255)
+            {
+                g = 255;
+            }
+
+            int ng = (int) g;
+            res[j] = Color.rgb(ng, ng, ng);
+        }
+        bmp.setPixels(res, 0, w,0,0, w, h);
+    }
 }

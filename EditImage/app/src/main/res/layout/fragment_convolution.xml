@@ -18,8 +18,18 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="Gauss"
-            android:textSize="10dp"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/button_convolution_sobel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="Sobel"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
 
     </LinearLayout>
 

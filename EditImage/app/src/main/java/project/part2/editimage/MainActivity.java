@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     String photoPath;
     static ImageView imageView;
+    float posx;
+    float posy;
     Bitmap copyBmp;
     boolean zoom = false;
     double d;
@@ -67,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        posx = imageView.getX();
+        posy = imageView.getY();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
@@ -168,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == GALLERY_REQUEST) {  // everything processed successfully and hearing back from the image gallery
             Uri imageUri = data.getData();  // the address of the image on the SD Card
             imageView.setImageURI(imageUri);
+            resetImgView();
 
             Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
             copyBmp = bmp;
@@ -194,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 copyBmp = bmp;
                 if (bmp != null) {
                     imageView.setImageBitmap(bmp);
+                    resetImgView();
                 }
             }
             catch (Exception e)
@@ -306,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     int x = (int)(x0 - e.getX(0));
                     int y = (int)(y0 - e.getY(0));
-                    imageView.scrollBy(x/50, y/50);
+                    imageView.scrollTo(x, y);
                 }
         }
         return super.onTouchEvent(e);
@@ -318,5 +324,12 @@ public class MainActivity extends AppCompatActivity {
         float b = y1 - y2;
 
         return Math.sqrt(a*a + b*b);
+    }
+
+    public void resetImgView()
+    {
+        imageView.setScaleX(1);
+        imageView.setScaleY(1);
+        imageView.scrollTo(0, 0);
     }
 }
