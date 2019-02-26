@@ -22,10 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -70,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-
-        //imageView.setOnTouchListener(onTouchEvent(e));
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
@@ -268,9 +262,7 @@ public class MainActivity extends AppCompatActivity {
         {
             case MotionEvent.ACTION_DOWN: // un doigt
                 x0 = e.getX();
-                System.out.println("X0 = " + x0);
                 y0 = e.getY();
-                System.out.println("Y0 = " + y0);
                 break;
             case MotionEvent.ACTION_UP: // le doigt se lève
                 break;
@@ -279,33 +271,14 @@ public class MainActivity extends AppCompatActivity {
             }
             case MotionEvent.ACTION_POINTER_DOWN: // deux doigts
                 x0 = e.getX(0);
-                System.out.println("X0 = " + x0);
                 y0 = e.getY(0);
-                System.out.println("y0 = " + y0);
                 x1 = e.getX(1);
-                System.out.println("X1 = " + x1);
                 y1 = e.getY(1);
-                System.out.println("Y1 = " + y1);
                 zoom = true;
                 d = dist(x0, x1, y0, y1);
                 break;
             case MotionEvent.ACTION_MOVE:
-                if (zoom == false)
-                {
-                    System.out.println("PAS DE ZOOM");
-                }
                 if (zoom == true) {
-                    System.out.println("ZOOM");
-                    //x0 = e.getX(0);
-                    System.out.println("X0 = " + x0 + "      getX = " + e.getX(0));
-                    //y0 = e.getY(0);
-                    System.out.println("Y0 = " + y0 + "     getY = " + e.getY(0));
-
-                    /*System.out.println("y0 = " + y0);
-                    x1 = e.getX(1);
-                    System.out.println("X1 = " + x1);
-                    y1 = e.getY(1);
-                    System.out.println("Y1 = " + y1);*/
                     try{
                         if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
                             System.out.println(" D = " + d + "        DIST = " + dist(x0, e.getX(0), y0, e.getY(0)));
