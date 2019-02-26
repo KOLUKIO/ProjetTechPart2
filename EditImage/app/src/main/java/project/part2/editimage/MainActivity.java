@@ -19,12 +19,13 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
@@ -43,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
     String photoPath;
     static ImageView imageView;
     Bitmap copyBmp;
+    boolean zoom = false;
+    double d;
 
-    private GestureDetector gd;
+    float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +70,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
-        gd = new GestureDetector(this, new Gesture());
-        imageView.setOnTouchListener(touchListener);
+        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+
+        //imageView.setOnTouchListener(onTouchEvent(e));
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
@@ -258,10 +263,83 @@ public class MainActivity extends AppCompatActivity {
         return MainActivity.context;
     }
 
-    View.OnTouchListener touchListener = new View.OnTouchListener(){
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return gd.onTouchEvent(event);
+    public boolean onTouchEvent(MotionEvent e) {
+        switch(e.getAction() & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_DOWN: // un doigt
+                x0 = e.getX();
+                System.out.println("X0 = " + x0);
+                y0 = e.getY();
+                System.out.println("Y0 = " + y0);
+                break;
+            case MotionEvent.ACTION_UP: // le doigt se lève
+                break;
+            case MotionEvent.ACTION_POINTER_UP: { // deuxième doigt se lève
+                break;
+            }
+            case MotionEvent.ACTION_POINTER_DOWN: // deux doigts
+                x0 = e.getX(0);
+                System.out.println("X0 = " + x0);
+                y0 = e.getY(0);
+                System.out.println("y0 = " + y0);
+                x1 = e.getX(1);
+                System.out.println("X1 = " + x1);
+                y1 = e.getY(1);
+                System.out.println("Y1 = " + y1);
+                zoom = true;
+                d = dist(x0, x1, y0, y1);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (zoom == false)
+                {
+                    System.out.println("PAS DE ZOOM");
+                }
+                if (zoom == true) {
+                    System.out.println("ZOOM");
+                    //x0 = e.getX(0);
+                    System.out.println("X0 = " + x0 + "      getX = " + e.getX(0));
+                    //y0 = e.getY(0);
+                    System.out.println("Y0 = " + y0 + "     getY = " + e.getY(0));
+
+                    /*System.out.println("y0 = " + y0);
+                    x1 = e.getX(1);
+                    System.out.println("X1 = " + x1);
+                    y1 = e.getY(1);
+                    System.out.println("Y1 = " + y1);*/
+                    try{
+                        if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
+                            System.out.println(" D = " + d + "        DIST = " + dist(x0, e.getX(0), y0, e.getY(0)));
+                            imageView.setScaleX(imageView.getScaleX() + 0.05f);
+                            imageView.setScaleY(imageView.getScaleY() + 0.05f);
+                        }
+                        if (dist(x0, e.getX(1), y0, e.getY(1)) < d) {
+                            imageView.setScaleX(imageView.getScaleX() - 0.05f);
+                            imageView.setScaleY(imageView.getScaleY() - 0.05f);
+                        }
+                        if (imageView.getScaleX() > 2.5)
+                        {
+                            imageView.setScaleX(2.5f);
+                            imageView.setScaleY(2.5f);
+                        }
+                        if (imageView.getScaleX() < 0.3)
+                        {
+                            imageView.setScaleX(0.3f);
+                            imageView.setScaleY(0.3f);
+                        }
+                    }
+                    catch (Exception ex)
+                    { }
+
+                }
         }
-    };
+        return super.onTouchEvent(e);
+    }
+
+    public double dist(float x1, float x2, float y1, float y2)
+    {
+        float a = x1-x2;
+        float b = y1 - y2;
+
+        return Math.sqrt(a*a + b*b);
+    }
 }
