@@ -15,7 +15,7 @@ public class MenuFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private Button mButtonFilter, mButtonContrast, mButtonBlur, mButtonConvolution, mButtonInfo;
+    private Button mButtonFilter, mButtonContrast, mButtonBlur, mButtonConvolution, mButtonInfo, mButtonRotate;
 
     @Nullable
     @Override
@@ -26,6 +26,7 @@ public class MenuFragment extends Fragment {
         mButtonBlur = (Button) view.findViewById(R.id.button_blur);
         mButtonConvolution = (Button) view.findViewById(R.id.button_convolution);
         mButtonInfo = (Button) view.findViewById(R.id.button_information);
+        mButtonRotate = (Button)view.findViewById(R.id.button_rotate);
 
         mButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,12 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        mButtonRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changeFragment(new RotateFragment());
+            }
+        });
         return view;
     }
 }

@@ -60,8 +60,19 @@
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/ic_info_24dp"
             android:text="information"
-            android:textSize="10dp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/button_rotate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/rotate"
+            android:text="rotate"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
 
     </LinearLayout>
 
