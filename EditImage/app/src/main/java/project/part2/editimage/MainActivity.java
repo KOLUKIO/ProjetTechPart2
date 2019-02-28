@@ -19,9 +19,11 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     boolean zoom = false;
     double d;
 
+    private GestureDetector gd;
+
     float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
     @Override
@@ -69,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        gd = new GestureDetector(this, new Gesture());
+        imageView.setOnTouchListener(touchListener);
         posx = imageView.getX();
         posy = imageView.getY();
 
@@ -263,61 +269,6 @@ public class MainActivity extends AppCompatActivity {
         return MainActivity.context;
     }
 
-    public boolean onTouchEvent(MotionEvent e) {
-        switch(e.getAction() & MotionEvent.ACTION_MASK)
-        {
-            case MotionEvent.ACTION_DOWN: // un doigt
-                x0 = e.getX();
-                y0 = e.getY();
-                break;
-            case MotionEvent.ACTION_UP: // le doigt se lève
-                break;
-            case MotionEvent.ACTION_POINTER_UP: { // deuxième doigt se lève
-                zoom = false;
-                break;
-            }
-            case MotionEvent.ACTION_POINTER_DOWN: // deux doigts
-                x0 = e.getX(0);
-                y0 = e.getY(0);
-                x1 = e.getX(1);
-                y1 = e.getY(1);
-                zoom = true;
-                d = dist(x0, x1, y0, y1);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (zoom == true) {
-                    try{
-                        if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
-                            imageView.setScaleX(imageView.getScaleX() + 0.025f);
-                            imageView.setScaleY(imageView.getScaleY() + 0.025f);
-                        }
-                        if (dist(x0, e.getX(1), y0, e.getY(1)) < d) {
-                            imageView.setScaleX(imageView.getScaleX() - 0.025f);
-                            imageView.setScaleY(imageView.getScaleY() - 0.025f);
-                        }
-                        if (imageView.getScaleX() > 2.5)
-                        {
-                            imageView.setScaleX(2.5f);
-                            imageView.setScaleY(2.5f);
-                        }
-                        if (imageView.getScaleX() < 0.3)
-                        {
-                            imageView.setScaleX(0.3f);
-                            imageView.setScaleY(0.3f);
-                        }
-                    }
-                    catch (Exception ex)
-                    { }
-                }
-                else{
-                    int x = (int)(x0 - e.getX(0));
-                    int y = (int)(y0 - e.getY(0));
-                    imageView.scrollTo(x, y);
-                }
-        }
-        return super.onTouchEvent(e);
-    }
-
     public double dist(float x1, float x2, float y1, float y2)
     {
         float a = x1-x2;
@@ -332,4 +283,57 @@ public class MainActivity extends AppCompatActivity {
         imageView.setScaleY(1);
         imageView.scrollTo(0, 0);
     }
+
+    View.OnTouchListener touchListener = new View.OnTouchListener(){
+        @Override
+        public boolean onTouch(View v, MotionEvent e) {
+            switch(e.getAction() & MotionEvent.ACTION_MASK)
+            {
+                case MotionEvent.ACTION_DOWN: // un doigt
+                    x0 = e.getX();
+                    y0 = e.getY();
+                    break;
+                case MotionEvent.ACTION_UP: // le doigt se lève
+                    break;
+                case MotionEvent.ACTION_POINTER_UP: { // deuxième doigt se lève
+                    zoom = false;
+                    break;
+                }
+                case MotionEvent.ACTION_POINTER_DOWN: // deux doigts
+                    x0 = e.getX(0);
+                    y0 = e.getY(0);
+                    x1 = e.getX(1);
+                    y1 = e.getY(1);
+                    zoom = true;
+                    d = dist(x0, x1, y0, y1);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (zoom == true) {
+                        try{
+                            if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
+                                imageView.setScaleX(imageView.getScaleX() + 0.025f);
+                                imageView.setScaleY(imageView.getScaleY() + 0.025f);
+                            }
+                            if (dist(x0, e.getX(1), y0, e.getY(1)) < d) {
+                                imageView.setScaleX(imageView.getScaleX() - 0.025f);
+                                imageView.setScaleY(imageView.getScaleY() - 0.025f);
+                            }
+                            if (imageView.getScaleX() > 2.5)
+                            {
+                                imageView.setScaleX(2.5f);
+                                imageView.setScaleY(2.5f);
+                            }
+                            if (imageView.getScaleX() < 0.3)
+                            {
+                                imageView.setScaleX(0.3f);
+                                imageView.setScaleY(0.3f);
+                            }
+                        }
+                        catch (Exception ex)
+                        { }
+                    }
+            }
+            return gd.onTouchEvent(e);
+        }
+    };
 }

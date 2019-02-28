@@ -356,7 +356,8 @@ public class Functions {
 
     // convolution
 
-    double[][] matrixGaussian5 = {{1/98.0, 2/98.0, 3/98.0,  2/98.0, 1/98.0},
+    double[][] matrixGaussian5 = {
+            {1/98.0, 2/98.0, 3/98.0,  2/98.0, 1/98.0},
             {2/98.0, 6/98.0, 8/98.0,  6/98.0, 2/98.0},
             {3/98.0, 8/98.0, 10/98.0, 8/98.0, 3/98.0},
             {2/98.0, 6/98.0, 8/98.0,  6/98.0, 2/98.0},
@@ -429,7 +430,7 @@ public class Functions {
         }
     }
 
-    private static int[] convolution1(int[] pix,int i, int j, int w, int[] copy, int[][] h){
+    private static int[] convolutionArr(int[] pix,int i, int j, int w, int[] copy, int[][] h){
         int len = h.length;
         int n = len/2;
         int s = 0;
@@ -453,12 +454,14 @@ public class Functions {
 
         toGrey(bmp);
 
-        int[][] h1 = {{-1,0,1},
-                        {-2,0,2},
-                        {-1,0,1}} ; // Opérateur de sobel h1
-        int[][] h2 = {{-1,-2,-1},
-                        {0,0,0},
-                        {1,2,1}} ; // Opérateur de sobel h2
+        int[][] h1 = {
+                {-1, 0, 1},
+                {-2, 0, 2},
+                {-1, 0, 1}} ; // Opérateur de sobel h1
+        int[][] h2 = {
+                {-1,-2,-1},
+                {0, 0, 0},
+                {1, 2, 1}} ; // Opérateur de sobel h2
 
         int len = h1.length;
         int[] p = new int[size];
@@ -479,8 +482,8 @@ public class Functions {
         {
             for(int j = n; j < h - n; j++)
             {
-                copy1 = convolution1(p, i, j, w, copy1, h1);
-                copy2 = convolution1(p, i, j, w, copy2, h2);
+                copy1 = convolutionArr(p, i, j, w, copy1, h1);
+                copy2 = convolutionArr(p, i, j, w, copy2, h2);
             }
         }
 
