@@ -13,11 +13,29 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/button_convolution_averaging_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Averaging 3*3"
+            android:textSize="10dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/button_convolution_averaging_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Averaging 5*5"
+            android:textSize="10dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
             android:id="@+id/button_convolution_gauss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Gauss"
+            android:text="Gauss 5*5"
             android:textColor="@android:color/white"
             android:textSize="10dp" />
 
