@@ -32,7 +32,7 @@ public class Gesture extends GestureDetector.SimpleOnGestureListener {
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         Log.i("TAG", "onScroll: ");
 
-        if (e2.getPointerCount() == 1){
+        if (e2.getPointerCount() == 1 && MainActivity.imageView.getScaleX() > 1){
             MainActivity.imageView.scrollBy((int)distanceX, (int)distanceY);
         }
         return true;

@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                     d = dist(x0, x1, y0, y1);
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (zoom == true) {
+                    if (zoom) {
                         try{
                             if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
                                 imageView.setScaleX(imageView.getScaleX() + 0.025f);
