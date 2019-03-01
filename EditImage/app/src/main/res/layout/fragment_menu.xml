@@ -32,15 +32,6 @@
             android:textSize="10dp"
             android:textColor="@android:color/white" />
 
-        <Button
-            android:id="@+id/button_blur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_filter_24dp"
-            android:text="blur"
-            android:textSize="10dp"
-            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/button_convolution"
@@ -69,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/rotate"
+            android:drawableTop="@drawable/ic_rotate_24dp"
             android:text="rotate"
             android:textColor="@android:color/white"
             android:textSize="10dp" />

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/rotatel"
+            android:drawableTop="@drawable/ic_rotate_left_24dp"
             android:text="Left"
             android:textColor="@android:color/white"
             android:textSize="10dp" />
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:drawableTop="@drawable/rotater"
+            android:drawableTop="@drawable/ic_rotate_right_24dp"
             android:text="Right"
             android:textColor="@android:color/white"
             android:textSize="10dp" />

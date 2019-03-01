@@ -15,7 +15,7 @@ public class MenuFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private Button mButtonFilter, mButtonContrast, mButtonBlur, mButtonConvolution, mButtonInfo, mButtonRotate;
+    private Button mButtonFilter, mButtonContrast, mButtonConvolution, mButtonInfo, mButtonRotate;
 
     @Nullable
     @Override
@@ -23,7 +23,6 @@ public class MenuFragment extends Fragment {
         View view  = inflater.inflate(R.layout.fragment_menu, container, false);
         mButtonFilter = (Button) view.findViewById(R.id.button_filter);
         mButtonContrast = (Button) view.findViewById(R.id.button_contrast);
-        mButtonBlur = (Button) view.findViewById(R.id.button_blur);
         mButtonConvolution = (Button) view.findViewById(R.id.button_convolution);
         mButtonInfo = (Button) view.findViewById(R.id.button_information);
         mButtonRotate = (Button)view.findViewById(R.id.button_rotate);
@@ -39,13 +38,6 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 ((MainActivity)getActivity()).changeFragment(new ContrastFragment());
-            }
-        });
-
-        mButtonBlur.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity)getActivity()).changeFragment(new BlurFragment());
             }
         });
 
