@@ -53,7 +53,8 @@ public class FilterFragment extends Fragment {
         mButtonRed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toRed(bitmap);
+                //toRed(bitmap);
+                toRedRS(bitmap);
                 i.setImageBitmap(bitmap);
             }
         });

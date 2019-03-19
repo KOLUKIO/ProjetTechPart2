@@ -90,6 +90,18 @@ public class Filters {
         }
     }
 
+    public static void toRedRS(Bitmap bmp){
+        RenderScript rs = RenderScript.create(MainActivity.getContext());
+        Allocation input = Allocation.createFromBitmap(rs, bmp);
+        Allocation output = Allocation.createTyped(rs, input.getType());
+        ScriptC_toRed toRed = new ScriptC_toRed(rs);
+
+        toRed.forEach_toRed(input, output);
+        output.copyTo(bmp);
+        input.destroy(); output.destroy();
+        toRed.destroy(); rs.destroy();
+    }
+
     // TP2 Question 3.1 Colorize picture
     /**
      *
