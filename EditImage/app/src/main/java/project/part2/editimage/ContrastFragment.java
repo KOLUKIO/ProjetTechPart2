@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import static project.part2.editimage.Functions.*;
+import static project.part2.editimage.Contrast.*;
 
 public class ContrastFragment extends Fragment {
 

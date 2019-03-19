@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import static project.part2.editimage.Functions.*;
+import static project.part2.editimage.Convolution.*;
 
 public class ConvolutionFragment extends Fragment {
 

@@ -18,7 +18,7 @@ import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 
-import static project.part2.editimage.Functions.histogramRgb;
+import static project.part2.editimage.Contrast.histogramRgb;
 
 
 public class GraphFragment extends Fragment {

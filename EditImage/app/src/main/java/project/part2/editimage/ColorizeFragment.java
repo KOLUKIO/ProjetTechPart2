@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 
-import static project.part2.editimage.Functions.colorizeRS;
-import static project.part2.editimage.Functions.colorize;
-import static project.part2.editimage.Functions.contrast;
-import static project.part2.editimage.Functions.lutContrastAuto;
+import static project.part2.editimage.Filters.colorizeRS;
 
 public class ColorizeFragment extends Fragment {
 
