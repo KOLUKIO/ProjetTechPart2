@@ -72,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         gd = new GestureDetector(this, new Gesture());
         imageView.setOnTouchListener(touchListener);
         posx = imageView.getX();
         posy = imageView.getY();
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarMenu);
+        final Toolbar toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         if (imageView.getDrawable() != null){
             imageView.setImageBitmap(copyBmp);
             Toast.makeText(this, "Image reset", Toast.LENGTH_SHORT).show();
+            changeFragment(new MenuFragment());
         }
     }
 
