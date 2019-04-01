@@ -66,6 +66,16 @@
                 android:textSize="10dp"
                 android:textColor="@android:color/white"/>
 
+            <Button
+                android:id="@+id/button_filter_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableTop="@drawable/ic_bar_horizontal_24dp"
+                android:text="bar"
+                android:textSize="10dp"
+                android:textColor="@android:color/white"/>
+
         </LinearLayout>
 
     </HorizontalScrollView>

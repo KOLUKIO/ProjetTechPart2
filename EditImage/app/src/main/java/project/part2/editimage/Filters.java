@@ -221,4 +221,23 @@ public class Filters {
         input.destroy(); output.destroy();
         keepRed.destroy(); rs.destroy();
     }
+
+    public static void addBarHorizontal(Bitmap bmp, int nbBar, int widthBar){
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        int[] pixels = new int[width];
+        int grey;
+        int spaceBetweenBar = height/(nbBar+1);
+
+        for(int y=spaceBetweenBar; y<=spaceBetweenBar*nbBar; y+=spaceBetweenBar){
+            for(int j=0; j<widthBar; j++){
+                grey = j*255/widthBar;
+                for(int i=0; i<width; i++){
+                    pixels[i] = Color.rgb(grey, grey, grey);
+                }
+                bmp.setPixels(pixels, 0, width, 0, j+y, width, 1);
+            }
+        }
+    }
+
 }
