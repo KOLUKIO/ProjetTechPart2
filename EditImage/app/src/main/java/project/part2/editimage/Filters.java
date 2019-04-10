@@ -5,6 +5,10 @@ import android.graphics.Color;
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.RenderScript;
 
+import java.nio.IntBuffer;
+
+import static project.part2.editimage.Convolution.BlurRS;
+
 public class Filters {
 
     public static void toNegative(Bitmap bmp){
@@ -237,6 +241,39 @@ public class Filters {
                 }
                 bmp.setPixels(pixels, 0, width, 0, j+y, width, 1);
             }
+        }
+    }
+
+    public static void pencilSketch(Bitmap bmp){
+        Bitmap bmpGrey, bmpNegative, b;
+        bmpGrey = bmp;
+        toGreyRS(bmpGrey);
+        bmpNegative = bmpGrey;
+        toNegativeRS(bmpNegative);
+        BlurRS(bmpNegative, 5);
+
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        int[] pixels1 = new int[width];
+        int[] pixels2 = new int[width];
+
+        for(int y=0; y<height; y++){
+            bmpNegative.getPixels(pixels1, 0, width, 0, y, width, 1);
+            bmpGrey.getPixels(pixels2, 0, width, 0, y, width, 1);
+
+            for(int i=0; i<width; i++){
+                if(Color.red(pixels2[i]) == 255){
+                    pixels1[i] = Color.rgb(255, 255, 255);
+                }else {
+                    int color =  ((Color.red(pixels1[i]) << 8) / (255 - Color.red(pixels2[i])));
+                    if(255 > color){
+                        pixels1[i] = Color.rgb(255, 255, 255);
+                    }else {
+                        pixels1[i] = Color.rgb(color, color, color);
+                    }
+                }
+            }
+            bmp.setPixels(pixels1, 0, width, 0, y, width, 1);
         }
     }
 

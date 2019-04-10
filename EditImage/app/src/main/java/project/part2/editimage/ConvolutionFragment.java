@@ -41,9 +41,9 @@ public class ConvolutionFragment extends Fragment {
 
         mButtonAveraging3 = view.findViewById(R.id.button_convolution_averaging_3);
         mButtonAveraging5 = view.findViewById(R.id.button_convolution_averaging_5);
-        mButtonGaus5 = (Button) view.findViewById(R.id.button_convolution_gauss);
-        mButtonSobel = (Button) view.findViewById(R.id.button_convolution_sobel);
-        mButtonBlurRs = (Button) view.findViewById(R.id.button_blurRs);
+        mButtonGaus5 = view.findViewById(R.id.button_convolution_gauss);
+        mButtonSobel = view.findViewById(R.id.button_convolution_sobel);
+        mButtonBlurRs = view.findViewById(R.id.button_blurRs);
 
         mButtonAveraging3.setOnClickListener(new View.OnClickListener() {
             @Override

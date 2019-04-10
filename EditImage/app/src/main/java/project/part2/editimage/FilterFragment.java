@@ -30,19 +30,18 @@ public class FilterFragment extends Fragment {
     // empty public constructor
     public FilterFragment() { }
 
-    private Button mButtonGrey, mButtonRed, mButtonColorize, mButtonKeepRed, mButtonNegative, mButtonBar;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_filter, container, false);
        // View v  = inflater.inflate(R.layout.activity_main, container, false);
-        mButtonGrey = view.findViewById(R.id.button_filter_grey);
-        mButtonRed = view.findViewById(R.id.button_filter_red);
-        mButtonColorize = view.findViewById(R.id.button_colorize);
-        mButtonKeepRed = view.findViewById(R.id.button_keep_red);
-        mButtonNegative = view.findViewById(R.id.button_filter_negative);
-        mButtonBar = view.findViewById(R.id.button_filter_bar);
+        Button mButtonGrey = view.findViewById(R.id.button_filter_grey);
+        Button mButtonRed = view.findViewById(R.id.button_filter_red);
+        Button mButtonColorize = view.findViewById(R.id.button_colorize);
+        Button mButtonKeepRed = view.findViewById(R.id.button_keep_red);
+        Button mButtonNegative = view.findViewById(R.id.button_filter_negative);
+        Button mButtonBar = view.findViewById(R.id.button_filter_bar);
+        Button mButtonCrayon = view.findViewById(R.id.button_filter_crayon);
 
         i = getActivity().findViewById(R.id.imageView);
 
@@ -100,6 +99,14 @@ public class FilterFragment extends Fragment {
             }
         });
 
+        mButtonCrayon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pencilSketch(bitmap);
+                i.setImageBitmap(bitmap);
+            }
+        });
+
         return view;
     }
 
@@ -121,6 +128,7 @@ public class FilterFragment extends Fragment {
                 if((nbBar+1)*widthBar > bitmap.getWidth()){
                     Toast.makeText(getContext(), "Bar number too great", Toast.LENGTH_SHORT).show();
                 }else {
+                    bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
                     addBarHorizontal(bitmap, nbBar, widthBar);
                     i.setImageBitmap(bitmap);
                 }
