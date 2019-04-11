@@ -100,7 +100,7 @@ public class ConvolutionFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int radius = Integer.parseInt(radiusText.getText().toString());
-                if(radius > 26){
+                if(radius > 25){
                     Toast.makeText(getContext(), "Radius too great", Toast.LENGTH_SHORT).show();
                 }else {
                     BlurRS(bitmap, radius);
