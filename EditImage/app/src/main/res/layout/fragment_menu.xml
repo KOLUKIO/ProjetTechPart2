@@ -21,7 +21,6 @@
             android:textSize="10dp"
             android:textColor="@android:color/white" />
 
-
         <Button
             android:id="@+id/button_contrast"
             android:layout_width="wrap_content"
@@ -31,7 +30,6 @@
             android:text="contrast"
             android:textSize="10dp"
             android:textColor="@android:color/white" />
-
 
         <Button
             android:id="@+id/button_convolution"
@@ -43,17 +41,6 @@
             android:textSize="10dp"
             android:textColor="@android:color/white" />
 
-
-        <Button
-            android:id="@+id/button_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:drawableTop="@drawable/ic_info_24dp"
-            android:text="information"
-            android:textColor="@android:color/white"
-            android:textSize="10dp" />
-
         <Button
             android:id="@+id/button_rotate"
             android:layout_width="wrap_content"
@@ -62,6 +49,27 @@
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/ic_rotate_24dp"
             android:text="rotate"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/button_stickers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_star_24dp"
+            android:text="stickers"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/button_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_info_24dp"
+            android:text="information"
             android:textColor="@android:color/white"
             android:textSize="10dp" />
 

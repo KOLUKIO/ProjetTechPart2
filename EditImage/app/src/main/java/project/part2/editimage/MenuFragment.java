@@ -1,9 +1,9 @@
 package project.part2.editimage;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +15,17 @@ public class MenuFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private Button mButtonFilter, mButtonContrast, mButtonConvolution, mButtonInfo, mButtonRotate;
-
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_menu, container, false);
-        mButtonFilter = (Button) view.findViewById(R.id.button_filter);
-        mButtonContrast = (Button) view.findViewById(R.id.button_contrast);
-        mButtonConvolution = (Button) view.findViewById(R.id.button_convolution);
-        mButtonInfo = (Button) view.findViewById(R.id.button_information);
-        mButtonRotate = (Button)view.findViewById(R.id.button_rotate);
+
+        Button mButtonFilter = view.findViewById(R.id.button_filter);
+        Button mButtonContrast = view.findViewById(R.id.button_contrast);
+        Button mButtonConvolution = view.findViewById(R.id.button_convolution);
+        Button mButtonInfo = view.findViewById(R.id.button_information);
+        Button mButtonStickers = view.findViewById(R.id.button_stickers);
+        Button mButtonRotate = view.findViewById(R.id.button_rotate);
 
         mButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +55,20 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        mButtonStickers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changeFragment(new StickersFragment());
+            }
+        });
+
         mButtonRotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).changeFragment(new RotateFragment());
             }
         });
+
         return view;
     }
 }
