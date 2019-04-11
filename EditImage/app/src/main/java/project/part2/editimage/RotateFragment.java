@@ -39,7 +39,7 @@ public class RotateFragment extends Fragment {
         mButtonRotateL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //i.setRotation(i.getRotation() - 90);
+                // i.setRotation(i.getRotation() - 90);
                 bitmap = rotateLeft(bitmap);
                 i.setImageBitmap(bitmap);
 
@@ -49,7 +49,7 @@ public class RotateFragment extends Fragment {
         mButtonRotateR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // i.setRotation(i.getRotation() + 90);
+                // i.setRotation(i.getRotation() + 90);
                 bitmap = rotateRight(bitmap);
                 i.setImageBitmap(bitmap);
             }

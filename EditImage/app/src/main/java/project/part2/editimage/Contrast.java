@@ -5,7 +5,6 @@ import android.graphics.Color;
 
 public class Contrast {
 
-    // contrast
     /**
      *
      * @param bmp , a Bitmap corresponding to the image to edit

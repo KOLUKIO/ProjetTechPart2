@@ -1,40 +1,37 @@
 package project.part2.editimage;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import static project.part2.editimage.Convolution.BlurRS;
 import static project.part2.editimage.Filters.*;
 
 public class FilterFragment extends Fragment {
 
     Bitmap bitmap;
     ImageView i;
+
     // empty public constructor
     public FilterFragment() { }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_filter, container, false);
-       // View v  = inflater.inflate(R.layout.activity_main, container, false);
+
         Button mButtonGrey = view.findViewById(R.id.button_filter_grey);
         Button mButtonRed = view.findViewById(R.id.button_filter_red);
         Button mButtonColorize = view.findViewById(R.id.button_colorize);
@@ -54,7 +51,7 @@ public class FilterFragment extends Fragment {
             public void onClick(View view) {
                 //toGrey(bitmap);
                 toGreyRS(bitmap);
-                i.setImageBitmap(bitmap); // Force refresh imageview
+                i.setImageBitmap(bitmap); // force refresh imageView
             }
         });
 

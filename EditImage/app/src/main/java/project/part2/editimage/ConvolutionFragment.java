@@ -5,8 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.renderscript.ScriptGroup;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -15,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 import static project.part2.editimage.Convolution.*;
 
@@ -22,28 +24,26 @@ public class ConvolutionFragment extends Fragment {
 
     Bitmap bitmap;
     ImageView i;
-    private Button mButtonAveraging3, mButtonAveraging5, mButtonGaus5, mButtonSobel, mButtonBlurRs;
-    int radius = 0;
 
     public ConvolutionFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_convolution, container, false);
 
-        i = (ImageView) getActivity().findViewById(R.id.imageView);
+        i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
 
-        mButtonAveraging3 = view.findViewById(R.id.button_convolution_averaging_3);
-        mButtonAveraging5 = view.findViewById(R.id.button_convolution_averaging_5);
-        mButtonGaus5 = view.findViewById(R.id.button_convolution_gauss);
-        mButtonSobel = view.findViewById(R.id.button_convolution_sobel);
-        mButtonBlurRs = view.findViewById(R.id.button_blurRs);
+        Button mButtonAveraging3 = view.findViewById(R.id.button_convolution_averaging_3);
+        Button mButtonAveraging5 = view.findViewById(R.id.button_convolution_averaging_5);
+        Button mButtonGaus5 = view.findViewById(R.id.button_convolution_gauss);
+        Button mButtonSobel = view.findViewById(R.id.button_convolution_sobel);
+        Button mButtonBlurRs = view.findViewById(R.id.button_blurRs);
 
         mButtonAveraging3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +86,8 @@ public class ConvolutionFragment extends Fragment {
 
         return view;
     }
-    public void Alert()
-    {
+
+    public void Alert() {
         AlertDialog.Builder radiusDialog = new AlertDialog.Builder(getActivity());
         radiusDialog.setTitle("Set radius");
 
@@ -99,11 +99,16 @@ public class ConvolutionFragment extends Fragment {
         radiusDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                radius = Integer.parseInt(radiusText.getText().toString());
-                BlurRS(bitmap, radius);
-                i.setImageBitmap(bitmap);
+                int radius = Integer.parseInt(radiusText.getText().toString());
+                if(radius > 26){
+                    Toast.makeText(getContext(), "Radius too great", Toast.LENGTH_SHORT).show();
+                }else {
+                    BlurRS(bitmap, radius);
+                    i.setImageBitmap(bitmap);
+                }
             }
         });
+
         radiusDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -113,4 +118,5 @@ public class ConvolutionFragment extends Fragment {
 
         radiusDialog.show();
     }
+
 }

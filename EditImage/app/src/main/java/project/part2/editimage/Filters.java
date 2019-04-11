@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.RenderScript;
 
-import java.nio.IntBuffer;
-
 import static project.part2.editimage.Convolution.BlurRS;
 
 public class Filters {
@@ -28,7 +26,7 @@ public class Filters {
         }
     }
 
-    public static void toNegativeRS(Bitmap bmp){
+    static void toNegativeRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
         Allocation output = Allocation.createTyped(rs, input.getType());
@@ -40,13 +38,11 @@ public class Filters {
         negative.destroy(); rs.destroy();
     }
 
-    public static int RgbToGrey(int pixel){
+    private static int RgbToGrey(int pixel){
         int grey = (int) (0.3*Color.red(pixel) + 0.59*Color.green(pixel) + 0.11*Color.blue(pixel));
         return Color.rgb(grey, grey, grey);
     }
 
-    // filter
-    // TP1 Question 10
     /**
      * Transforms color Bitmap to black and white Bitmap using getPixels() and setPixels()
      *
@@ -64,7 +60,7 @@ public class Filters {
         }
     }
 
-    public static void toGreyRS(Bitmap bmp){
+    static void toGreyRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
         Allocation output = Allocation.createTyped(rs, input.getType());
@@ -94,7 +90,7 @@ public class Filters {
         }
     }
 
-    public static void toRedRS(Bitmap bmp){
+    static void toRedRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
         Allocation output = Allocation.createTyped(rs, input.getType());
@@ -106,7 +102,6 @@ public class Filters {
         toRed.destroy(); rs.destroy();
     }
 
-    // TP2 Question 3.1 Colorize picture
     /**
      *
      * @param p , a double
@@ -180,7 +175,7 @@ public class Filters {
         }
     }
 
-    public static void colorizeRS(Bitmap bmp, double hue){
+    static void colorizeRS(Bitmap bmp, double hue){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
         Allocation output = Allocation.createTyped(rs, input.getType());
@@ -192,7 +187,6 @@ public class Filters {
         colorize.destroy(); rs.destroy();
     }
 
-    // TP2 Question 3.2 Keep one color
     /**
      * Keeps the red color of the image
      *
@@ -214,7 +208,7 @@ public class Filters {
         }
     }
 
-    public static void keepRedRS(Bitmap bmp){
+    static void keepRedRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
         Allocation output = Allocation.createTyped(rs, input.getType());
@@ -226,14 +220,20 @@ public class Filters {
         keepRed.destroy(); rs.destroy();
     }
 
-    public static void addBarHorizontal(Bitmap bmp, int nbBar, int widthBar){
+    /**
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     * @param nbBar , an integer corresponding to the number of bars wanted
+     * @param widthBar , an integer corresponding to the width of the bars
+     */
+    static void addBarHorizontal(Bitmap bmp, int nbBar, int widthBar){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
         int[] pixels = new int[width];
         int grey;
-        int spaceBetweenBar = height/(nbBar+1);
+        int spaceBetweenBars = height/(nbBar+1);
 
-        for(int y=spaceBetweenBar; y<=spaceBetweenBar*nbBar; y+=spaceBetweenBar){
+        for(int y=spaceBetweenBars; y<=spaceBetweenBars*nbBar; y+=spaceBetweenBars){
             for(int j=0; j<widthBar; j++){
                 grey = j*255/widthBar;
                 for(int i=0; i<width; i++){
@@ -244,7 +244,12 @@ public class Filters {
         }
     }
 
-    public static void pencilSketch(Bitmap bmp){
+    /**
+     * Allows to apply pencil sketch effect
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
+    static void pencilSketch(Bitmap bmp){
         Bitmap bmpGrey, bmpNegative;
         bmpGrey = bmp;
         toGreyRS(bmpGrey);
