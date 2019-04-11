@@ -245,12 +245,12 @@ public class Filters {
     }
 
     public static void pencilSketch(Bitmap bmp){
-        Bitmap bmpGrey, bmpNegative, b;
+        Bitmap bmpGrey, bmpNegative;
         bmpGrey = bmp;
         toGreyRS(bmpGrey);
         bmpNegative = bmpGrey;
         toNegativeRS(bmpNegative);
-        BlurRS(bmpNegative, 5);
+        BlurRS(bmpNegative, 3);
 
         int width = bmp.getWidth();
         int height = bmp.getHeight();
@@ -265,6 +265,7 @@ public class Filters {
                 if(Color.red(pixels2[i]) == 255){
                     pixels1[i] = Color.rgb(255, 255, 255);
                 }else {
+
                     int color =  ((Color.red(pixels1[i]) << 8) / (255 - Color.red(pixels2[i])));
                     if(255 > color){
                         pixels1[i] = Color.rgb(255, 255, 255);

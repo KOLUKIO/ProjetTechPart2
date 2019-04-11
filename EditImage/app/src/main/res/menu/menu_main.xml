@@ -13,17 +13,22 @@
         android:icon="@drawable/ic_insert_photo_white_48px"
         android:title="gallery"
         app:showAsAction="always" />
+
     <item
         android:id="@+id/action_save_photo"
         android:icon="@drawable/ic_save_24dp"
-        android:title="save"
-        app:showAsAction="always" />
+        android:title="Save"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_cancel"
         android:icon="@drawable/ic_cancel_24dp"
-        android:title="cancel"
-        app:showAsAction="always" />
+        android:title="Cancel"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_theme"
+        android:title="Change theme"
+        app:showAsAction="never"/>
 
 </menu>

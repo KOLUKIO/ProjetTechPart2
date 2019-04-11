@@ -2,6 +2,7 @@ package project.part2.editimage;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,12 +20,14 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.File;
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +83,11 @@ public class MainActivity extends AppCompatActivity {
         posx = imageView.getX();
         posy = imageView.getY();
 
-        final Toolbar toolbar = findViewById(R.id.toolbarMenu);
+        final View layoutMain = findViewById(R.id.layout_main);
+
+        toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
+
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -96,6 +104,18 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_cancel :
                         cancel();
+                        return true;
+                    case R.id.action_theme :
+                        final Switch mSwitch = ((Switch) toolbar.getMenu().findItem(R.id.action_theme).getActionView());
+                        if(mSwitch.isChecked()){
+                            mSwitch.setChecked(false);
+                            toolbar.setBackgroundResource(R.color.colorPrimaryDark);
+                            layoutMain.setBackgroundResource(R.color.colorBackgroundDark);
+                        }else {
+                            mSwitch.setChecked(true);
+                            toolbar.setBackgroundResource(R.color.colorPrimaryLight);
+                            layoutMain.setBackgroundResource(R.color.colorBackgroundLight);
+                        }
                         return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);
@@ -132,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        toolbar.getMenu().findItem(R.id.action_theme).setActionView(new Switch(getContext()));
+
+
         return true;
     }
 
@@ -228,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     private void savePicture() {
         try {
             Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-            FileOutputStream outStream = null;
+            FileOutputStream outStream;
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File(sdCard.getAbsolutePath() + "/editImage");
             dir.mkdirs();
@@ -278,8 +301,7 @@ public class MainActivity extends AppCompatActivity {
         return Math.sqrt(a*a + b*b);
     }
 
-    public void resetImgView()
-    {
+    public void resetImgView() {
         imageView.setScaleX(1);
         imageView.setScaleY(1);
         imageView.scrollTo(0, 0);
