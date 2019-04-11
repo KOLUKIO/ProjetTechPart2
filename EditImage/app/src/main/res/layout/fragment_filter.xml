@@ -86,6 +86,16 @@
                 android:textSize="10dp"
                 android:textColor="@android:color/white"/>
 
+            <Button
+                android:id="@+id/button_filter_median"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:text="Median"
+                android:textColor="@android:color/white"
+                android:textSize="10dp" />
+
         </LinearLayout>
 
     </HorizontalScrollView>

@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.RenderScript;
 
+import java.util.Arrays;
+
 import static project.part2.editimage.Convolution.BlurRS;
 
 public class Filters {
@@ -283,4 +285,26 @@ public class Filters {
         }
     }
 
+    public static void medianFilter(Bitmap bmp){
+        int[] mask = new int[3*3];
+        int[] p = new int[bmp.getWidth()*bmp.getHeight()];
+
+        bmp.getPixels(p,0,bmp.getWidth(),0,0,bmp.getWidth(),bmp.getHeight());
+        int[] p2 = p;
+
+        for(int i = 1; i < bmp.getWidth() - 1; i++) {
+            for (int j = 1; j < bmp.getHeight() - 1; j++) {
+                int index=0;
+                for(int c = -1; c <= 1; c++) {
+                    for (int l = -1; l <= 1; l++) {
+                        mask[index] = p[(i + c)  + (j + l) * bmp.getWidth()];
+                        index += 1;
+                    }
+                }
+                Arrays.sort(mask);
+                p2[i  + j * bmp.getWidth()] = mask[mask.length/2];
+            }
+        }
+        bmp.setPixels(p2,0,bmp.getWidth(),0,0,bmp.getWidth(),bmp.getHeight());
+    }
 }

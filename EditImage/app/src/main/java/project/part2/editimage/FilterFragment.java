@@ -39,6 +39,7 @@ public class FilterFragment extends Fragment {
         Button mButtonNegative = view.findViewById(R.id.button_filter_negative);
         Button mButtonBar = view.findViewById(R.id.button_filter_bar);
         Button mButtonCrayon = view.findViewById(R.id.button_filter_crayon);
+        Button mButtonMedian = view.findViewById(R.id.button_filter_median);
 
         i = getActivity().findViewById(R.id.imageView);
 
@@ -100,6 +101,14 @@ public class FilterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 pencilSketch(bitmap);
+                i.setImageBitmap(bitmap);
+            }
+        });
+
+        mButtonMedian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                medianFilter(bitmap);
                 i.setImageBitmap(bitmap);
             }
         });
