@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -18,12 +17,11 @@ import java.util.Objects;
 public class StickersFragment extends Fragment {
 
     Bitmap bitmap;
-    ImageView i, sticker;
+    ImageView i;
 
 //    RelativeLayout buttonLayout;
     RelativeLayout.LayoutParams layoutParams;
     RelativeLayout relativeLayout;
-
 
     public StickersFragment() {
         // Required empty public constructor
@@ -34,8 +32,6 @@ public class StickersFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_stickers, container, false);
 
         i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
-        sticker = Objects.requireNonNull(getActivity()).findViewById(R.id.sticker);
-
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
@@ -45,33 +41,30 @@ public class StickersFragment extends Fragment {
         mButtonStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createBubble(view);
+                createSticker();
             }
         });
 
         return view;
     }
 
-    public void createBubble(View view){
+    public void createSticker(){
 
-     //   final ImageView sticker = new ImageView(getContext());
-       // sticker.setImageResource(R.drawable.ic_star_24dp);
-       // final EditText sticker = new EditText(getContext());
+        final ImageView sticker = new ImageView(getContext());
+        sticker.setImageResource(R.drawable.ic_star_24dp);
 
-        relativeLayout = view.findViewById(R.id.root);
+        relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.root);
 
         layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
 
-      //  int id = View.generateViewId();
-     //   sticker.setId(id);
-        sticker.setImageResource(R.drawable.ic_star_24dp);
-      //  relativeLayout.addView(sticker);
-       // relativeLayout.addView(sticker, layoutParams);
+        int id = View.generateViewId();
+        sticker.setId(id);
+        relativeLayout.addView(sticker, layoutParams);
 
 
-        // button to modify bubble
+     /*   // button to modify bubble
         final Button buttonDelete = new Button(getContext());
 
         // delete button
@@ -81,7 +74,7 @@ public class StickersFragment extends Fragment {
 
         buttonDelete.setBackgroundResource(R.drawable.ic_delete_24dp);
         buttonDelete.setPadding(10,5,10,5);
-     //   buttonLayout.addView(buttonDelete, layoutParams);
+        buttonLayout.addView(buttonDelete, layoutParams);
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +84,9 @@ public class StickersFragment extends Fragment {
             }
         });
 
-        buttonDelete.setVisibility(View.GONE);
+        buttonDelete.setVisibility(View.GONE);*/
 
-        //sticker.setBackgroundResource(R.drawable.ic_star_24dp);
+       // sticker.setBackgroundResource(R.drawable.ic_star_24dp);
     }
 
 }
