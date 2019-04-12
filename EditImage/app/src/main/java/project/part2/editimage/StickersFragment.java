@@ -1,16 +1,17 @@
 package project.part2.editimage;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -30,9 +31,7 @@ public class StickersFragment extends Fragment {
     boolean zoom = false;
     double d;
 
-    RelativeLayout buttonLayout;
     RelativeLayout.LayoutParams layoutParams;
-    RelativeLayout relativeLayout;
 
     public StickersFragment() {
         // Required empty public constructor
@@ -136,8 +135,8 @@ public class StickersFragment extends Fragment {
         final ImageView sticker = new ImageView(getContext());
         sticker.setImageResource(R.drawable.ic_star_24dp);
 
-        relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.imageViewRoot);
-        buttonLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.layout_main);
+        final RelativeLayout relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.imageViewRoot);
+        FrameLayout buttonLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.buttonStickersRoot);
 
         layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT+200,
@@ -155,8 +154,7 @@ public class StickersFragment extends Fragment {
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        layoutParams.setMargins(0, 0, 50, 60);
+        layoutParams.setMargins(0, 30, 30, 0);
 
         buttonDelete.setBackgroundResource(R.drawable.ic_delete_24dp);
         buttonDelete.setPadding(50, 50, 50, 50);
@@ -167,6 +165,20 @@ public class StickersFragment extends Fragment {
             public void onClick(View v) {
                 sticker.setVisibility(View.GONE);
                 buttonDelete.setVisibility(View.GONE);
+            }
+        });
+
+        MainActivity.toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDelete.setVisibility(View.GONE);
+            }
+        });
+
+        sticker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                buttonDelete.setVisibility(View.VISIBLE);
             }
         });
 

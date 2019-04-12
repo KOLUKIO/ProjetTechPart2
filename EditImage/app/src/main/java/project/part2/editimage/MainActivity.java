@@ -1,14 +1,14 @@
 package project.part2.editimage;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -21,14 +21,12 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
-    Toolbar toolbar;
+    static Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -252,7 +250,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void savePicture() {
         try {
-            Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+            View rootView = findViewById(R.id.imageViewRoot);  //android.R.id.content
+            Bitmap bmp = viewToBitmap(rootView);
+
             FileOutputStream outStream;
             File sdCard = Environment.getExternalStorageDirectory();
             File dir = new File(sdCard.getAbsolutePath() + "/editImage");
@@ -361,4 +361,12 @@ public class MainActivity extends AppCompatActivity {
             return gd.onTouchEvent(e);
         }
     };
+
+    public Bitmap viewToBitmap(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawColor(Color.WHITE); // background of bitmap
+        view.draw(canvas);
+        return bitmap;
+    }
 }
