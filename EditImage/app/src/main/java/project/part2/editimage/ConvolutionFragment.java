@@ -89,7 +89,7 @@ public class ConvolutionFragment extends Fragment {
 
     public void Alert() {
         AlertDialog.Builder radiusDialog = new AlertDialog.Builder(getActivity());
-        radiusDialog.setTitle("Set radius");
+        radiusDialog.setTitle("Set radius (25 max)");
 
         final EditText radiusText = new EditText(MainActivity.getContext());
 
