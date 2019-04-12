@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Objects;
+
 import static project.part2.editimage.Contrast.*;
 
 public class ContrastFragment extends Fragment {
@@ -32,10 +34,9 @@ public class ContrastFragment extends Fragment {
         Button mButtonLess = view.findViewById(R.id.button_contrast_less);
         mButtonLess.setText("Less\ncontrast");
 
-        i = getActivity().findViewById(R.id.imageView);
+        i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
-
         i.setImageBitmap(bitmap);
 
         mButtonDynamic.setOnClickListener(new View.OnClickListener() {
@@ -64,4 +65,5 @@ public class ContrastFragment extends Fragment {
 
         return view;
     }
+
 }

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.Objects;
+
 import static project.part2.editimage.Rotate.*;
 
 public class RotateFragment extends Fragment {
@@ -27,8 +29,7 @@ public class RotateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rotate, container, false);
 
-        i = getActivity().findViewById(R.id.imageView);
-
+        i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
@@ -42,7 +43,6 @@ public class RotateFragment extends Fragment {
                 // i.setRotation(i.getRotation() - 90);
                 bitmap = rotateLeft(bitmap);
                 i.setImageBitmap(bitmap);
-
             }
         });
 

@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import static project.part2.editimage.Filters.*;
 
 public class FilterFragment extends Fragment {
@@ -41,8 +43,7 @@ public class FilterFragment extends Fragment {
         Button mButtonCrayon = view.findViewById(R.id.button_filter_crayon);
         Button mButtonMedian = view.findViewById(R.id.button_filter_median);
 
-        i = getActivity().findViewById(R.id.imageView);
-
+        i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);

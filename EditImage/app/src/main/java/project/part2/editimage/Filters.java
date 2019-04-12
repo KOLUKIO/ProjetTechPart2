@@ -11,6 +11,11 @@ import static project.part2.editimage.Convolution.BlurRS;
 
 public class Filters {
 
+    /**
+     * Transforms a image to negative
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     public static void toNegative(Bitmap bmp){
         int width = bmp.getWidth();
         int height = bmp.getHeight();
@@ -28,6 +33,11 @@ public class Filters {
         }
     }
 
+    /**
+     * Transforms a image to negative in renderscript
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     static void toNegativeRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
@@ -40,6 +50,12 @@ public class Filters {
         negative.destroy(); rs.destroy();
     }
 
+    /**
+     * Transforms rgb color to grey color
+     *
+     * @param pixel , an integer corresponding to the color pixel to change
+     * @return an integer corresponding to the new color
+     */
     private static int RgbToGrey(int pixel){
         int grey = (int) (0.3*Color.red(pixel) + 0.59*Color.green(pixel) + 0.11*Color.blue(pixel));
         return Color.rgb(grey, grey, grey);
@@ -48,6 +64,7 @@ public class Filters {
     /**
      * Transforms color Bitmap to black and white Bitmap using getPixels() and setPixels()
      *
+     * @param bmp , a Bitmap corresponding to the image to edit
      */
     public static void toGrey(Bitmap bmp){
         int width = bmp.getWidth();
@@ -62,6 +79,11 @@ public class Filters {
         }
     }
 
+    /**
+     * Transforms color Bitmap to black and white Bitmap in renderscript
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     static void toGreyRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
@@ -92,6 +114,11 @@ public class Filters {
         }
     }
 
+    /**
+     * Keeps only the red color of pixels in renderscript
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     static void toRedRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
@@ -159,7 +186,7 @@ public class Filters {
     }
 
     /**
-     * Changes the hue of a Bitmap (the hue is chosen randomly) using getPixels() and setPixels()
+     * Changes the hue of a Bitmap using getPixels() and setPixels()
      *
      * @param bmp , a Bitmap corresponding to the image to edit
      * @param hue , a double
@@ -177,6 +204,12 @@ public class Filters {
         }
     }
 
+    /**
+     * Changes the hue of a Bitmap in renderscript
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     * @param hue , a double
+     */
     static void colorizeRS(Bitmap bmp, double hue){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
@@ -210,6 +243,11 @@ public class Filters {
         }
     }
 
+    /**
+     * Keeps the red color of the image in renderscript
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     static void keepRedRS(Bitmap bmp){
         RenderScript rs = RenderScript.create(MainActivity.getContext());
         Allocation input = Allocation.createFromBitmap(rs, bmp);
@@ -223,6 +261,7 @@ public class Filters {
     }
 
     /**
+     * Allows to add bars
      *
      * @param bmp , a Bitmap corresponding to the image to edit
      * @param nbBar , an integer corresponding to the number of bars wanted
@@ -267,12 +306,10 @@ public class Filters {
         for(int y=0; y<height; y++){
             bmpNegative.getPixels(pixels1, 0, width, 0, y, width, 1);
             bmpGrey.getPixels(pixels2, 0, width, 0, y, width, 1);
-
             for(int i=0; i<width; i++){
                 if(Color.red(pixels2[i]) == 255){
                     pixels1[i] = Color.rgb(255, 255, 255);
                 }else {
-
                     int color =  ((Color.red(pixels1[i]) << 8) / (255 - Color.red(pixels2[i])));
                     if(255 > color){
                         pixels1[i] = Color.rgb(255, 255, 255);
@@ -285,6 +322,11 @@ public class Filters {
         }
     }
 
+    /**
+     * Allows to reduce noise of picture
+     *
+     * @param bmp , a Bitmap corresponding to the image to edit
+     */
     public static void medianFilter(Bitmap bmp){
         int[] mask = new int[3*3];
         int[] p = new int[bmp.getWidth()*bmp.getHeight()];

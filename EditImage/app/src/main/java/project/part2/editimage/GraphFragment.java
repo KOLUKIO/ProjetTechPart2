@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,9 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static project.part2.editimage.Contrast.histogramRgb;
-
 
 public class GraphFragment extends Fragment {
 
@@ -30,15 +31,13 @@ public class GraphFragment extends Fragment {
     ImageView i;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_graph, container, false);
 
-        i = (ImageView) getActivity().findViewById(R.id.imageView);
+        i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
-
         i.setImageBitmap(bitmap);
 
         int[][] hist = histogramRgb(bitmap);
@@ -59,7 +58,7 @@ public class GraphFragment extends Fragment {
             barEntriesBlue.add(new BarEntry(i, histBlue[i]));
         }
 
-        BarChart barChart = (BarChart) view.findViewById(R.id.activity_graph_bar_graph);
+        BarChart barChart = view.findViewById(R.id.activity_graph_bar_graph);
 
         BarDataSet barDataSetRed = new BarDataSet(barEntriesRed, "Pixels red");
         barDataSetRed.setColor(Color.argb(87, 255, 0, 0));

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,35 +40,8 @@ public class ConvolutionFragment extends Fragment {
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
 
-        Button mButtonAveraging3 = view.findViewById(R.id.button_convolution_averaging_3);
-        Button mButtonAveraging5 = view.findViewById(R.id.button_convolution_averaging_5);
-        Button mButtonGaus5 = view.findViewById(R.id.button_convolution_gauss);
         Button mButtonSobel = view.findViewById(R.id.button_convolution_sobel);
         Button mButtonBlurRs = view.findViewById(R.id.button_blurRs);
-
-        mButtonAveraging3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                convolution(bitmap, getMatrixAveraging(3));
-                i.setImageBitmap(bitmap);
-            }
-        });
-
-        mButtonAveraging5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                convolution(bitmap, getMatrixAveraging(5));
-                i.setImageBitmap(bitmap);
-            }
-        });
-
-        mButtonGaus5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                convolution(bitmap,matrixGaussian5);
-                i.setImageBitmap(bitmap);
-            }
-        });
 
         mButtonSobel.setOnClickListener(new View.OnClickListener() {
             @Override

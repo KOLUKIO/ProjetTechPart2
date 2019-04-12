@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -28,7 +29,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -47,15 +47,18 @@ public class MainActivity extends AppCompatActivity {
 
     String photoPath;
     static ImageView imageView;
+    Bitmap copyBmp;  // allow to reset imageView
+
+    // position of imageView
     float posx;
     float posy;
-    Bitmap copyBmp;
+
     boolean zoom = false;
     double d;
+    // position of two fingers
+    float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
     private GestureDetector gd;
-
-    float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
 
     static Toolbar toolbar;
 
@@ -86,12 +89,10 @@ public class MainActivity extends AppCompatActivity {
         posx = imageView.getX();
         posy = imageView.getY();
 
-
         final View layoutMain = findViewById(R.id.layout_main);
 
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
-
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -110,16 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         cancel();
                         return true;
                     case R.id.action_theme :
-                        final Switch mSwitch = ((Switch) toolbar.getMenu().findItem(R.id.action_theme).getActionView());
-                        if(mSwitch.isChecked()){
-                            mSwitch.setChecked(false);
-                            toolbar.setBackgroundResource(R.color.colorPrimaryDark);
-                            layoutMain.setBackgroundResource(R.color.colorBackgroundDark);
-                        }else {
-                            mSwitch.setChecked(true);
-                            toolbar.setBackgroundResource(R.color.colorPrimaryLight);
-                            layoutMain.setBackgroundResource(R.color.colorBackgroundLight);
-                        }
+                        changeTheme(layoutMain);
                         return true;
                     default:
                         return MainActivity.super.onOptionsItemSelected(menuItem);
@@ -134,9 +126,23 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(new MenuFragment());
     }
 
+    public void changeTheme(View layoutMain){
+        final Switch mSwitch = ((Switch) toolbar.getMenu().findItem(R.id.action_theme).getActionView());
+        if(mSwitch.isChecked()){
+            mSwitch.setChecked(false);
+            toolbar.setBackgroundResource(R.color.colorPrimaryDark);
+            layoutMain.setBackgroundResource(R.color.colorBackgroundDark);
+        }else {
+            mSwitch.setChecked(true);
+            toolbar.setBackgroundResource(R.color.colorPrimaryLight);
+            layoutMain.setBackgroundResource(R.color.colorBackgroundLight);
+        }
+    }
+
     public void cancel(){
         if (imageView.getDrawable() != null){
             imageView.setImageBitmap(copyBmp);
+            resetImgView();
             Toast.makeText(this, "Image reset", Toast.LENGTH_SHORT).show();
             changeFragment(new MenuFragment());
         }
@@ -157,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         toolbar.getMenu().findItem(R.id.action_theme).setActionView(new Switch(getContext()));
-
-
         return true;
     }
 
@@ -242,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],@NonNull int[] grantResults) {
         switch (requestCode) {
             case REQUEST_TAKE_PHOTO: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -314,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     View.OnTouchListener touchListener = new View.OnTouchListener(){
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent e) {
             switch(e.getAction() & MotionEvent.ACTION_MASK) {

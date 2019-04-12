@@ -1,5 +1,6 @@
 package project.part2.editimage;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -26,8 +27,6 @@ public class StickersFragment extends Fragment {
     float posY;
     private int _xDelta;
     private int _yDelta;
-    float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
-    double d;
 
     RelativeLayout.LayoutParams layoutParams;
 
@@ -39,14 +38,14 @@ public class StickersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_stickers, container, false);
 
+        Button mButtonStar = view.findViewById(R.id.button_star);
+        Button mButtonHeart = view.findViewById(R.id.button_heart);
+        Button mButtonSun = view.findViewById(R.id.button_sun);
+
         i = Objects.requireNonNull(getActivity()).findViewById(R.id.imageView);
         bitmap = ((BitmapDrawable)i.getDrawable()).getBitmap();
         bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true); // Allow to edit image
         i.setImageBitmap(bitmap);
-
-        Button mButtonStar = view.findViewById(R.id.button_star);
-        Button mButtonHeart = view.findViewById(R.id.button_heart);
-        Button mButtonSun = view.findViewById(R.id.button_sun);
 
         mButtonStar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +121,7 @@ public class StickersFragment extends Fragment {
     }
 
     View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             final int X = (int) event.getRawX();
@@ -131,18 +131,13 @@ public class StickersFragment extends Fragment {
                     RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
                     _xDelta = X - lParams.leftMargin;
                     _yDelta = Y - lParams.topMargin;
-                    x0 = event.getX();
-                    y0 = event.getY();
+
                     break;
                 case MotionEvent.ACTION_UP:
                     v.requestFocus();
                     break;
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    x0 = event.getX(0);
-                    y0 = event.getY(0);
-                    x1 = event.getX(1);
-                    y1 = event.getY(1);
-                    d = MainActivity.dist(x0, x1, y0, y1);
+
                     break;
                 case MotionEvent.ACTION_MOVE:
                     RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v.getLayoutParams();

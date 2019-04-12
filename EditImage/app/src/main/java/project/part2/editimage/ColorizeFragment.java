@@ -51,6 +51,6 @@ public class ColorizeFragment extends Fragment {
         });
 
         return view;
-
     }
+
 }

@@ -13,8 +13,6 @@ import static project.part2.editimage.Filters.*;
 
 public class Convolution {
 
-    /*********************** convolution ***********************/
-
     static double[][] matrixGaussian5 = {
             {1/98.0, 2/98.0, 3/98.0,  2/98.0, 1/98.0},
             {2/98.0, 6/98.0, 8/98.0,  6/98.0, 2/98.0},
@@ -40,7 +38,7 @@ public class Convolution {
         return matrix;
     }
 
-    // a revoir
+    // not good
     /**
      * Calculate the Gaussian filter
      *
@@ -60,11 +58,6 @@ public class Convolution {
         return matrix;
     }
 
-    public static double[][] matrixLaplacien = {
-            {0.0, 1.0, 0.0},
-            {1.0, -4.0, 1.0},
-            {0.0, 1.0, 0.0}};
-
     /**
      * Modify the Bitmap according to the matrix
      *
@@ -76,8 +69,8 @@ public class Convolution {
         int height = bmp.getHeight();
         int len = matrix.length;
         int border = (len-1)/2;
-        int[] pixels = new int[width-border*2];  // permet de parcourir tout les pixels de l'image
-        int[] pixelsMatrix = new int[len];  // permet de parcourir les voisins d'un pixel
+        int[] pixels = new int[width-border*2];  // allows you to browse all the pixels of the image
+        int[] pixelsMatrix = new int[len];  // allows to browse the neighbors of pixel
         double pixelRed, pixelGreen, pixelBlue;
 
         for(int y=border; y<height-border*2; y++){
@@ -88,13 +81,11 @@ public class Convolution {
                 for (int j = -border; j <= border; j++) {
                     bmp.getPixels(pixelsMatrix, 0, len, x, y + j, len, 1);
                     for (int i=0; i<len; i++) {
-
                         pixelRed += Color.red(pixelsMatrix[i]) * matrix[i][j + border];
                         pixelGreen += Color.green(pixelsMatrix[i]) * matrix[i][j + border];
                         pixelBlue += Color.blue(pixelsMatrix[i]) * matrix[i][j + border];
                     }
                 }
-
                 pixels[x] =  Color.rgb((int) pixelRed, (int) pixelGreen, (int) pixelBlue);
             }
             bmp.setPixels(pixels, 0, width-border*2, border, y, width-border*2, 1);
@@ -129,12 +120,12 @@ public class Convolution {
         int[][] h1 = {
                 {-1, 0, 1},
                 {-2, 0, 2},
-                {-1, 0, 1}} ; // Opérateur de sobel h1
+                {-1, 0, 1}} ; // operator of sobel h1
 
         int[][] h2 = {
                 {-1,-2,-1},
                 {0, 0, 0},
-                {1, 2, 1}} ; // Opérateur de sobel h2
+                {1, 2, 1}} ; // operator of sobel h2
 
         int len = h1.length;
         int[] p = new int[size];
@@ -151,7 +142,7 @@ public class Convolution {
 
         int n = len/2;
 
-        for(int i = n; i < width - n; i++) // On applique les masques sur les deux copies
+        for(int i = n; i < width - n; i++) // apply the masks on both copies
         {
             for(int j = n; j < height - n; j++)
             {
@@ -209,6 +200,6 @@ public class Convolution {
         blurScript.destroy();
         t.destroy();
         rs.destroy();
-        //return bmp;
+
     }
 }

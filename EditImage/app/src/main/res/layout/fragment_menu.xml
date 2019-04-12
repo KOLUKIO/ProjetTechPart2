@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:drawableTop="@drawable/ic_info_24dp"
-            android:text="information"
+            android:text="histogram"
             android:textColor="@android:color/white"
             android:textSize="10dp" />
 
