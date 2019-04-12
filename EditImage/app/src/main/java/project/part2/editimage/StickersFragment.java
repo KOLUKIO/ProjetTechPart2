@@ -1,5 +1,6 @@
 package project.part2.editimage;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -10,10 +11,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -30,7 +30,7 @@ public class StickersFragment extends Fragment {
     boolean zoom = false;
     double d;
 
-//    RelativeLayout buttonLayout;
+    RelativeLayout buttonLayout;
     RelativeLayout.LayoutParams layoutParams;
     RelativeLayout relativeLayout;
 
@@ -136,24 +136,30 @@ public class StickersFragment extends Fragment {
         final ImageView sticker = new ImageView(getContext());
         sticker.setImageResource(R.drawable.ic_star_24dp);
 
-        relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.root);
+        relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.imageViewRoot);
+        buttonLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.layout_main);
+
         layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT);
+                RelativeLayout.LayoutParams.WRAP_CONTENT+200,
+                RelativeLayout.LayoutParams.WRAP_CONTENT+200);
 
         int id = View.generateViewId();
         sticker.setId(id);
         relativeLayout.addView(sticker, layoutParams);
 
-     /*   // button to modify bubble
-        final Button buttonDelete = new Button(getContext());
+        // button to modify bubble
+        final ImageButton buttonDelete = new ImageButton(getContext());
 
         // delete button
         layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        layoutParams.setMargins(0, 0, 50, 60);
+
         buttonDelete.setBackgroundResource(R.drawable.ic_delete_24dp);
-        buttonDelete.setPadding(10,5,10,5);
+        buttonDelete.setPadding(50, 50, 50, 50);
         buttonLayout.addView(buttonDelete, layoutParams);
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
@@ -163,9 +169,8 @@ public class StickersFragment extends Fragment {
                 buttonDelete.setVisibility(View.GONE);
             }
         });
-        buttonDelete.setVisibility(View.GONE);*/
 
-     return sticker;
+        return sticker;
     }
 
 }
