@@ -1,6 +1,7 @@
 package project.part2.editimage;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     static Toolbar toolbar;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         imageView.setOnTouchListener(touchListener);
         posx = imageView.getX();
         posy = imageView.getY();
+
 
         final View layoutMain = findViewById(R.id.layout_main);
 
@@ -295,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
         return MainActivity.context;
     }
 
-    public double dist(float x1, float x2, float y1, float y2)
+    public static double dist(float x1, float x2, float y1, float y2)
     {
         float a = x1-x2;
         float b = y1 - y2;
@@ -312,8 +316,7 @@ public class MainActivity extends AppCompatActivity {
     View.OnTouchListener touchListener = new View.OnTouchListener(){
         @Override
         public boolean onTouch(View v, MotionEvent e) {
-            switch(e.getAction() & MotionEvent.ACTION_MASK)
-            {
+            switch(e.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN: // un doigt
                     x0 = e.getX();
                     y0 = e.getY();
@@ -343,15 +346,12 @@ public class MainActivity extends AppCompatActivity {
                                 imageView.setScaleX(imageView.getScaleX() - 0.025f);
                                 imageView.setScaleY(imageView.getScaleY() - 0.025f);
                             }
-                            if (imageView.getScaleX() > 2.5)
-                            {
+                            if (imageView.getScaleX() > 2.5) {
                                 imageView.setScaleX(2.5f);
                                 imageView.setScaleY(2.5f);
                             }
-                            if (imageView.getScaleX() < 0.3)
-                            {
-                                imageView.setScaleX(0.3f);
-                                imageView.setScaleY(0.3f);
+                            if(imageView.getScaleX() <= 1){
+                                resetImgView();
                             }
                         }
                         catch (Exception ex)

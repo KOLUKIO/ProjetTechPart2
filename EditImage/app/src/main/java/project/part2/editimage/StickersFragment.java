@@ -5,7 +5,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +27,6 @@ public class StickersFragment extends Fragment {
     private int _xDelta;
     private int _yDelta;
     float x0 = 0, x1 = 0, y0 = 0, y1 = 0;
-    boolean zoom = false;
     double d;
 
     RelativeLayout.LayoutParams layoutParams;
@@ -47,76 +45,34 @@ public class StickersFragment extends Fragment {
         i.setImageBitmap(bitmap);
 
         Button mButtonStar = view.findViewById(R.id.button_star);
+        Button mButtonHeart = view.findViewById(R.id.button_heart);
+        Button mButtonSun = view.findViewById(R.id.button_sun);
 
         mButtonStar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sticker = addSticker();
-                sticker.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        final int X = (int) event.getRawX();
-                        final int Y = (int) event.getRawY();
-                        switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                            case MotionEvent.ACTION_DOWN:
-                                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                                _xDelta = X - lParams.leftMargin;
-                                _yDelta = Y - lParams.topMargin;
+                sticker = addSticker(R.drawable.ic_star_24dp);
+                sticker.setOnTouchListener(onTouchListener);
+                posX = v.getX();
+                posY = v.getY();
+            }
+        });
 
-                                x0 = event.getX();
-                                y0 = event.getY();
+        mButtonHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sticker = addSticker(R.drawable.ic_heart_24dp);
+                sticker.setOnTouchListener(onTouchListener);
+                posX = v.getX();
+                posY = v.getY();
+            }
+        });
 
-                               break;
-                            case MotionEvent.ACTION_UP:
-                                v.requestFocus();
-                                break;
-                            case MotionEvent.ACTION_POINTER_UP:
-                                zoom = false;
-                                break;
-                            case MotionEvent.ACTION_POINTER_DOWN:
-                                x0 = event.getX(0);
-                                y0 = event.getY(0);
-                                x1 = event.getX(1);
-                                y1 = event.getY(1);
-                                zoom = true;
-                                d = dist(x0, x1, y0, y1);
-                                break;
-                            case MotionEvent.ACTION_MOVE:
-                                if (zoom){
-                                    try{
-                                        if (dist(x0, event.getX(1), y0, event.getY(1)) > d) {
-                                            v.setScaleX(v.getScaleX() + 0.025f);
-                                            v.setScaleY(v.getScaleY() + 0.025f);
-                                        }
-                                        if (dist(x0, event.getX(1), y0, event.getY(1)) < d) {
-                                            v.setScaleX(v.getScaleX() - 0.025f);
-                                            v.setScaleY(v.getScaleY() - 0.025f);
-                                        }
-                                        if (v.getScaleX() > 1.2) {
-                                            v.setScaleX(1.2f);
-                                            v.setScaleY(1.2f);
-                                        }
-                                        if (v.getScaleX() < 0.5) {
-                                            v.setScaleX(0.5f);
-                                            v.setScaleY(0.5f);
-                                        }
-                                    }
-                                    catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }else {
-                                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
-                                    layoutParams.leftMargin = X - _xDelta;
-                                    layoutParams.topMargin = Y - _yDelta;
-                                    layoutParams.rightMargin = -250;
-                                    layoutParams.bottomMargin = -250;
-                                    v.setLayoutParams(layoutParams);
-                                }
-                                break;
-                        }
-                        return true;
-                    }
-                });
+        mButtonSun.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sticker = addSticker(R.drawable.ic_sun_24dp);
+                sticker.setOnTouchListener(onTouchListener);
                 posX = v.getX();
                 posY = v.getY();
             }
@@ -125,22 +81,16 @@ public class StickersFragment extends Fragment {
         return view;
     }
 
-    public double dist(float x1, float x2, float y1, float y2) {
-        float a = x1-x2;
-        float b = y1 - y2;
-        return Math.sqrt(a*a + b*b);
-    }
-
-    public ImageView addSticker(){
+    public ImageView addSticker(int resId){
         final ImageView sticker = new ImageView(getContext());
-        sticker.setImageResource(R.drawable.ic_star_24dp);
+        sticker.setImageResource(resId);
 
         final RelativeLayout relativeLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.imageViewRoot);
         FrameLayout buttonLayout = Objects.requireNonNull(getActivity()).findViewById(R.id.buttonStickersRoot);
 
         layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT+200,
-                RelativeLayout.LayoutParams.WRAP_CONTENT+200);
+                RelativeLayout.LayoutParams.WRAP_CONTENT+150,
+                RelativeLayout.LayoutParams.WRAP_CONTENT+150);
 
         int id = View.generateViewId();
         sticker.setId(id);
@@ -153,8 +103,8 @@ public class StickersFragment extends Fragment {
         layoutParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-        layoutParams.setMargins(0, 30, 30, 0);
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+       // layoutParams.setMargins(0, 30, 30, 0);
 
         buttonDelete.setBackgroundResource(R.drawable.ic_delete_24dp);
         buttonDelete.setPadding(50, 50, 50, 50);
@@ -168,21 +118,43 @@ public class StickersFragment extends Fragment {
             }
         });
 
-        MainActivity.toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonDelete.setVisibility(View.GONE);
-            }
-        });
-
-        sticker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                buttonDelete.setVisibility(View.VISIBLE);
-            }
-        });
-
         return sticker;
     }
+
+    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            final int X = (int) event.getRawX();
+            final int Y = (int) event.getRawY();
+            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_DOWN:
+                    RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                    _xDelta = X - lParams.leftMargin;
+                    _yDelta = Y - lParams.topMargin;
+                    x0 = event.getX();
+                    y0 = event.getY();
+                    break;
+                case MotionEvent.ACTION_UP:
+                    v.requestFocus();
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    x0 = event.getX(0);
+                    y0 = event.getY(0);
+                    x1 = event.getX(1);
+                    y1 = event.getY(1);
+                    d = MainActivity.dist(x0, x1, y0, y1);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
+                    layoutParams.leftMargin = X - _xDelta;
+                    layoutParams.topMargin = Y - _yDelta;
+                    layoutParams.rightMargin = -250;
+                    layoutParams.bottomMargin = -250;
+                    v.setLayoutParams(layoutParams);
+                    break;
+            }
+            return true;
+        }
+    };
 
 }

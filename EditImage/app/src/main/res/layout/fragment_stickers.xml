@@ -21,6 +21,26 @@
             android:textSize="10dp"
             android:textColor="@android:color/white"/>
 
+        <Button
+            android:id="@+id/button_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_heart_24dp"
+            android:text="heart"
+            android:textSize="10dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/button_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_sun_24dp"
+            android:text="sun"
+            android:textSize="10dp"
+            android:textColor="@android:color/white"/>
+
     </LinearLayout>
 
 </HorizontalScrollView>
