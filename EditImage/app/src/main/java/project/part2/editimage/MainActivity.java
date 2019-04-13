@@ -370,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
     public Bitmap viewToBitmap(View view) {
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(Color.WHITE); // background of bitmap
+        canvas.drawColor(Color.TRANSPARENT); // background of bitmap
         view.draw(canvas);
         return bitmap;
     }
