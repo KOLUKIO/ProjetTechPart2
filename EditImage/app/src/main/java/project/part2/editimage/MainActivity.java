@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1314;
     private static final int REQUEST_TAKE_PHOTO = 1;
 
-    RelativeLayout rl;
+    static RelativeLayout rl;
     String photoPath;
     static ImageView imageView;
     Bitmap copyBmp;  // allow to reset imageView
@@ -261,6 +262,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void savePicture() {
         try {
+
+            imageView.scrollTo((int)posx, (int)posy);
             View rootView = findViewById(R.id.imageViewRoot);  //android.R.id.content
             Bitmap bmp = viewToBitmap(rootView);
 
