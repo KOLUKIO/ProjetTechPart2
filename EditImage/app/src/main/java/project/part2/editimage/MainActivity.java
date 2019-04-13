@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int GALLERY_REQUEST = 1314;
     private static final int REQUEST_TAKE_PHOTO = 1;
 
+    RelativeLayout rl;
     String photoPath;
     static ImageView imageView;
     Bitmap copyBmp;  // allow to reset imageView
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         posy = imageView.getY();
 
         final View layoutMain = findViewById(R.id.layout_main);
+        rl = (RelativeLayout) findViewById(R.id.imageViewRoot);
 
         toolbar = findViewById(R.id.toolbarMenu);
         setSupportActionBar(toolbar);
@@ -346,10 +349,17 @@ public class MainActivity extends AppCompatActivity {
                             if (dist(x0, e.getX(1), y0, e.getY(1)) > d) {
                                 imageView.setScaleX(imageView.getScaleX() + 0.025f);
                                 imageView.setScaleY(imageView.getScaleY() + 0.025f);
+                                rl.getLayoutParams().height = (int)(imageView.getHeight() * imageView.getScaleY());
+                                rl.getLayoutParams().width = (int)(imageView.getWidth() * imageView.getScaleX());
+                                rl.requestLayout();
                             }
                             if (dist(x0, e.getX(1), y0, e.getY(1)) < d) {
                                 imageView.setScaleX(imageView.getScaleX() - 0.025f);
                                 imageView.setScaleY(imageView.getScaleY() - 0.025f);
+
+                                rl.getLayoutParams().height = (int)(imageView.getHeight() * imageView.getScaleY());
+                                rl.getLayoutParams().width = (int)(imageView.getWidth() * imageView.getScaleX());
+                                rl.requestLayout();
                             }
                             if (imageView.getScaleX() > 2.5) {
                                 imageView.setScaleX(2.5f);
