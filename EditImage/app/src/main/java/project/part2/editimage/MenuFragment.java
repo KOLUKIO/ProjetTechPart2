@@ -26,6 +26,7 @@ public class MenuFragment extends Fragment {
         Button mButtonInfo = view.findViewById(R.id.button_information);
         Button mButtonStickers = view.findViewById(R.id.button_stickers);
         Button mButtonRotate = view.findViewById(R.id.button_rotate);
+        Button mButtonMirror = view.findViewById(R.id.button_mirror);
 
         mButtonFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,13 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).changeFragment(new RotateFragment());
+            }
+        });
+
+        mButtonMirror.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).changeFragment(new MirrorFragment());
             }
         });
 

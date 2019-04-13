@@ -64,6 +64,17 @@
             android:textSize="10dp" />
 
         <Button
+            android:id="@+id/button_mirror"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/mirrorh"
+            android:text="mirror"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
             android:id="@+id/button_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

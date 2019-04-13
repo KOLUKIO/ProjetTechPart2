@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/colorTransparentGrey">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_mirrorH"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/mirrorh"
+            android:text="Horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/button_mirrorV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/mirrorv"
+            android:text="Vertical"
+            android:textColor="@android:color/white"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+</HorizontalScrollView>
